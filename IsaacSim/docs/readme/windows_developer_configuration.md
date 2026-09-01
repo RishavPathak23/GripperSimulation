@@ -1,0 +1,186 @@
+---
+orphan: true
+---
+
+# Windows C++ Developer Configuration
+
+## Introduction
+
+This document guides you through setting up this repository for C++ development on Windows using Microsoft Visual Studio and the Windows SDK.
+
+**For New Users:** If you are new to Windows C++ development, this guide provides a step-by-step installation of Visual Studio 2022 Community and the Windows SDK, ensuring you have all the components required to build Isaac Sim from source.
+
+**For Advanced Configurations:** If you already have Visual Studio and the Windows SDK installed but wish to specify exact versions, this guide will help you configure your environment using the `[repo_build.msbuild]` configuration within `repo.toml` at the project root.
+
+## Supported Toolchain
+
+Isaac Sim's Windows C++ build uses **CUDA 12.8**, which requires an MSVC host compiler with `_MSC_VER` below 1950 (MSVC 14.44 / VS 2022 17.x). **Visual Studio 2022** with the **Desktop development with C++** workload is the supported configuration.
+
+Visual Studio 2026 ships MSVC v145 (14.51+) by default, which is not compatible with CUDA 12.8 for `.cu` compilation. Use Visual Studio 2022 instead.
+
+| Component | Supported version |
+|---|---|
+| Visual Studio | **2022** (17.x) |
+| MSVC toolset | **v143** (14.43–14.44) |
+| MSBuild | **17.x** |
+| Windows SDK | **10.0.26100** |
+
+## Configuration
+
+To enable the Windows C++ build process:
+
+- Set the `"platform:windows-x86_64".enabled` flag to `true` in your `repo.toml` file:
+
+  ```toml
+  [repo_build.build]
+  "platform:windows-x86_64".enabled = true
+  ```
+
+- Set the `link_host_toolchain` flag to `true` in your `repo.toml` file:
+
+  ```toml
+  [repo_build.msbuild]
+  link_host_toolchain = true
+  ```
+
+**Note:** If you already have Visual Studio 2022 and the Windows SDK installed with the workload below, this might be the only change needed. The tooling will auto-detect installed components.
+
+## Windows Long Paths Support
+
+Isaac Sim builds may generate file paths exceeding the traditional Windows 260-character limit. To avoid build errors related to missing files or path length restrictions, Windows Long Paths support must be enabled.
+
+### Automatic Check
+
+The build script (`build.bat`) automatically checks the `LongPathsEnabled` registry setting and displays warnings if long paths support is not properly configured.
+
+### Checking Long Paths Status
+
+To manually verify if long paths are enabled on your system, run the following command in PowerShell:
+
+```powershell
+Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled"
+```
+
+The value should be `1` for enabled, or `0` for disabled.
+
+### Enabling Long Paths Support
+
+If long paths are not enabled, follow these steps:
+
+1. **Open PowerShell as Administrator**
+   - Right-click on PowerShell and select "Run as Administrator"
+
+2. **Create or Set the Registry Value**
+
+   If the registry value doesn't exist, create it:
+   ```powershell
+   New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
+   ```
+
+   If it already exists but is set to `0`, update it:
+   ```powershell
+   Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1
+   ```
+
+3. **Restart Your System**
+   - A system restart is required for the changes to take effect.
+
+**Note:** Long paths support is available on Windows 11.
+
+## Compiler Version Checking
+
+The Windows build process checks toolchain versions before starting (defined in `repo.toml`):
+
+ * Visual Studio **2022** (17.x)
+ * MSVC **v143**
+ * MSBuild **17.x**
+ * Windows SDK **10.0.26100**
+
+If you do not have these versions you can still start a build with `build.bat --skip-compiler-version-check`. Proceed at your own risk — unsupported toolchains may fail during CUDA compilation or at runtime.
+
+## Microsoft Visual Studio and Windows SDK Setup
+
+### Basic Installation
+
+#### Installing Visual Studio 2022 Community (Recommended)
+
+Install using Winget by running the following command in PowerShell:
+
+  ```powershell
+  winget install --id=Microsoft.VisualStudio.2022.Community -e --override "--add Microsoft.VisualStudio.Workload.NativeDesktop --includeRecommended"
+  ```
+
+The **Desktop development with C++** workload includes MSVC v143 by default. After installation, verify in the Visual Studio Installer that the following optional components are selected:
+
+  - **MSVC v143** (included with the workload)
+  - **Windows 11 SDK (10.0.26100.\*)**
+
+#### Installing Windows SDK (as needed)
+
+Usually, the Windows SDK is included with the "Desktop development with C++" workload. To verify or install it separately:
+
+1. **Launch Visual Studio Installer**
+   - Open the installer if it's not already running.
+
+2. **Modify Installation**
+
+   ![VS Modify](./vs_modify.png)
+   - Click "Modify" on your Visual Studio installation.
+
+3. **Verify Windows SDK**
+
+   ![VS WinSDK Verify](./isim_6.0_base_tut_gui_vs2022_winsdk_verify.png)
+   - Under **Desktop development with C++** → **Optional**, ensure **Windows 11 SDK (10.0.26100.\*)** is checked.
+
+4. **Apply Changes**
+   - Click "Modify" to install or update the SDK.
+
+### Configuring an Existing Installation
+
+#### Default Installation Paths
+
+If Visual Studio and the Windows SDK are installed in default locations, the build tooling will auto-detect them without additional configuration.
+
+- Default Windows SDK: `C:\Program Files (x86)\Windows Kits`
+- Default Visual Studio 2022: `C:\Program Files\Microsoft Visual Studio\2022`
+
+#### Non-Default Installation Paths
+
+For installations at non-standard paths, specify them in `repo.toml`:
+
+```toml
+[repo_build.msbuild]
+vs_path = "D:\\CustomPath\\Visual Studio\\2022\\Community"
+winsdk_path = "D:\\CustomPath\\Windows Kits\\10\\bin\\10.0.26100.0"
+```
+
+Adjust and save the paths as needed.
+
+**Note:** If the path entered is incorrect or invalid, the build system will fall back to auto-detection.
+
+#### Multiple Installations
+
+For multiple Visual Studio or Windows SDK installations, the latest matching version is used by default. If unspecified, default edition preference is "Enterprise", "Professional", "Community". To specify preferred versions, editions, or paths:
+
+##### Visual Studio
+
+```toml
+[repo_build.msbuild]
+vs_version = "2022"
+vs_edition = "Community"
+msvc_version = "v143"
+vs_path = "D:\\AnotherPath\\Visual Studio\\2022\\Community\\"
+```
+
+##### Windows SDK
+
+```toml
+[repo_build.msbuild]
+winsdk_version = "10.0.26100.0"
+winsdk_path = "D:\\CustomSDKPath\\Windows Kits\\10\\bin\\10.0.26100.0"
+```
+
+With these configurations, you control which versions the build system uses, ensuring consistency in environments with multiple installations.
+
+## Additional Resources
+- [Repo Build Documentation](https://docs.omniverse.nvidia.com/kit/docs/repo_build/1.0.0/)

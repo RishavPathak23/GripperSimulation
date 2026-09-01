@@ -1,0 +1,35 @@
+#usda 1.0
+(
+    "Robot Motion Planning Codeless schema"
+    subLayers = [
+    @usdGeom/schema.usda@,
+    ]
+)
+
+over "GLOBAL"(
+    customData= {
+        string libraryName = "RobotMotionSchema"
+        string libraryPath = "./"
+        string libraryPrefix = "RobotMotionSchema"
+        bool skipCodeGeneration = true
+    }
+)
+{
+
+}
+
+class "IsaacMotionPlanningAPI"
+(
+    inherits = </APISchemaBase>
+    customData = {
+        token apiSchemaType = "singleApply"
+    }
+)
+{
+    bool isaac:motionPlanning:collisionEnabled = true (
+        displayName = "Collision Enabled"
+        doc = """
+        Whether collision checking is enabled for motion planning on this prim.
+        """
+    )
+}

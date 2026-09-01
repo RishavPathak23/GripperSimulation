@@ -1,0 +1,15 @@
+{
+    "launch_config": {
+        "renderer": "RealTimePathTracing",
+        "headless": false
+    },
+    "resolution": [512, 512],
+    "backend_type": "DiskBackend",
+    "backend_params": {
+        "output_dir": "_out_defaultwriter"
+    },
+    "writer_config": {
+        "rgb": true,
+        "instance_segmentation": true
+    }
+}

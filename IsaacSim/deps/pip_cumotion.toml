@@ -1,0 +1,14 @@
+# Target kit 109.x, python 3.12, ABI=1, numpy 2.x
+# cumotion is a custom dependency that is compiled and brought in from packman for isaacsim.robot_motion.cumotion
+[[dependency]]
+python = "../_build/target-deps/python"
+packages = [
+    "cumotion==1.1.0a2"            # SWIPAT filed under: N/A (NVIDIA-authored) # Used by: isaacsim.robot_motion.cumotion
+]
+target = "../_build/target-deps/isaac_cumotion_prebundle"
+platforms = ["*-x86_64", "*aarch64"]
+download_only = false
+install_dependencies = false
+append_to_install_folder = true
+gather_licenses_path = "../_build/PACKAGE-LICENSES/PIP-prebundled-LICENSES.txt"
+extra_args = ["--no-index", "-f", "_build/target-deps/cumotion/python_wheels"]

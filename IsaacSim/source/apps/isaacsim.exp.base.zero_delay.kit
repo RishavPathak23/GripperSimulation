@@ -1,0 +1,34 @@
+[package]
+title = "Isaac Sim Python"
+description = "A trimmed down app for use with python providing zero frame delay"
+version = "6.0.1"
+execFile = "isaac-sim.zero_delay"
+keywords = ["experience", "app", "usd", "isaacsim"] # That makes it browsable in UI with "experience" filter
+
+
+[dependencies]
+"isaacsim.exp.base" = {}
+
+[settings]
+app.name = "Isaac-Sim Zero Delay"
+app.version = "6.0.1"
+app.hydraEngine.waitIdle = true
+app.updateOrder.checkForHydraRenderComplete = 1000
+app.vulkan = true                     # Explicitly enable Vulkan
+app.enableDeveloperWarnings = false   # disable developer warnings to reduce log noise
+exts."isaacsim.ros2.bridge".publish_multithreading_disabled = true # disable multithreading for ros2 bridge to reduce latency
+exts."isaacsim.ros2.bridge".publish_with_queue_thread = false # disable queue-based thread mode for ros2 bridge
+
+[settings.app.exts.folders]
+'++' = [
+    "${app}",
+    "${app}/../exts",
+    "${app}/../extscache",
+    "${app}/../extsUser",
+    "${app}/../extsDeprecated",
+]
+
+[settings.exts."omni.kit.registry.nucleus".registries]
+++ = [
+    { name = "isaacsim/prod/6.0", url = "https://ovextensionsprod.blob.core.windows.net/exts/isaacsim/prod/6.0/shared" },
+]

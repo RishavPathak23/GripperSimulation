@@ -1,0 +1,30 @@
+[package]
+version = "1.2.2"
+category = "Simulation"
+title = "Isaac Sim Physics API Editor"
+description = "Provides a UI tool for applying and removing physics APIs (collision, rigid body, articulation) on USD prims with support for convex hull and triangle mesh collision shapes."
+keywords = ["isaac", "physics", "utils",]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/Overview.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+writeTarget.kit = true
+
+[dependencies]
+"isaacsim.core.deprecation_manager" = {}
+"isaacsim.gui.components" = {}
+"omni.physx" = {}
+
+[[python.module]]
+name = "isaacsim.util.physics"
+
+[[python.module]]
+name = "isaacsim.util.physics.tests"
+
+[[test]]
+stdoutFailPatterns.exclude = [
+    '*The NumPy module was reloaded*',
+]
+
+[documentation]
+pages = ["docs/Overview.md", "docs/CHANGELOG.md"]

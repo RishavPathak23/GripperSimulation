@@ -1,0 +1,59 @@
+{
+    "UCXSubscribeJointCommand": {
+        "version": 1,
+        "icon": "icons/isaac-sim.svg",
+        "description": "This node subscribes to joint command data via UCX",
+        "metadata": {
+            "uiName": "UCX Subscribe Joint Command"
+        },
+        "categoryDefinitions": "config/CategoryDefinition.json",
+        "categories": "isaacUcx",
+        "inputs": {
+            "execIn": {
+                "type": "execution",
+                "description": "The input execution port"
+            },
+            "port": {
+                "type": "uint",
+                "description": "Port number for UCX communication",
+                "default": 50008
+            },
+            "tag": {
+                "type": "uint64",
+                "description": "UCX tag for message identification. Default is FNV-1a 32-bit hash of 'isaac.JointCommand'.",
+                "default": 987171027
+            },
+            "timeoutMs": {
+                "type": "uint",
+                "description": "Timeout in milliseconds for UCX receive requests. If 0, waits indefinitely.",
+                "uiName": "Timeout (ms)",
+                "default": 0
+            }
+        },
+        "outputs": {
+            "execOut": {
+                "type": "execution",
+                "description": "Output execution triggers when a new message is received"
+            },
+            "timeStamp": {
+                "type": "double",
+                "description": "Timestamp in seconds",
+                "default": 0.0
+            },
+            "positionCommand": {
+                "type": "double[]",
+                "description": "Position commands"
+            },
+            "velocityCommand": {
+                "type": "double[]",
+                "description": "Velocity commands"
+            },
+            "effortCommand": {
+                "type": "double[]",
+                "description": "Effort commands"
+            }
+        }
+    }
+}
+
+

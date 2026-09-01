@@ -1,0 +1,6 @@
+{
+    "categoryDefinitions": {
+        "$description": "These categories are applied to Isaac Sim UCX nodes",
+        "isaacUcx": "Nodes implementing UCX functionality for high-performance communication"
+    }
+}

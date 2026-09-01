@@ -1,0 +1,19 @@
+# Target kit 109.x
+[[dependency]]
+python = "../_build/target-deps/python"
+packages = [
+    "imageio==2.37.2",                   # SWIPAT filed under: https://nvbugs/3701046 # Used by: (none found)
+    "scipy==1.17.0",                     # SWIPAT filed under: https://nvbugs/3673519 # Used by: isaacsim.asset.exporter.urdf, isaacsim.core.experimental.prims, isaacsim.core.utils, isaacsim.replicator.domain_randomization, isaacsim.replicator.grasping, isaacsim.replicator.writers, isaacsim.robot.wheeled_robots, isaacsim.ros2.tf_viewer, isaacsim.ucx.core
+    "pyyaml==6.0.3",                     # SWIPAT filed under: https://nvbugs/3434739 # Used by: isaacsim.asset.exporter.urdf, isaacsim.benchmark.services, isaacsim.replicator.grasping, isaacsim.replicator.mobility_gen, isaacsim.robot.policy.examples, isaacsim.robot_setup.grasp_editor, isaacsim.robot_setup.xrdf_editor, isaacsim.ros2.core, isaacsim.ros2.tf_viewer
+    "opencv-python-headless==4.13.0.90", # SWIPAT filed under: https://nvbugs/4636915 # Used by: isaacsim.benchmark.services, isaacsim.replicator.mobility_gen, isaacsim.ros2.core, isaacsim.ros2.nodes, isaacsim.sensors.camera
+    "trimesh==4.11.1",                   # SWIPAT filed under: https://nvbugs/4287403 # Used by: isaacsim.replicator.grasping
+    "rtree==1.4.1",                      # SWIPAT filed under: https://nvbugs/5326957 # Used by: isaacsim.replicator.grasping
+]
+
+target = "../_build/target-deps/pip_compute_prebundle"
+platforms = ["*-x86_64", "linux-aarch64"]
+download_only = false
+install_dependencies = false
+append_to_install_folder = true
+gather_licenses_path = "../_build/PACKAGE-LICENSES/PIP-prebundled-LICENSES.txt"
+# extra_args = []

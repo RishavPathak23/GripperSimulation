@@ -1,0 +1,53 @@
+# Public API for module isaacsim.replicator.grasping:
+
+## Classes
+
+- class GraspingManager
+  - def __init__(self)
+  - def clear(self)
+  - def clear_simulation(self, simulate_using_timeline: bool)
+  - def clear_gripper(self)
+  - def clear_object(self)
+  - def set_results_output_dir(self, dir_path: str | None)
+  - def get_results_output_dir(self) -> str | None
+  - def set_overwrite_results_output(self, overwrite: bool)
+  - def set_gripper(self, gripper: str | Usd.Prim) -> bool
+  - [property] def gripper_path(self) -> str
+  - [property] def gripper_prim(self) -> Usd.Prim | None
+  - def set_object_prim_path(self, path: str)
+  - def get_object_prim_path(self) -> str | None
+  - def get_object_prim(self) -> Usd.Prim | None
+  - def create_and_add_grasp_phase(self, name: str, joint_drive_targets: dict[str, float] = None, simulation_steps: int = DEFAULT_NUM_SIMULATION_STEPS, simulation_step_dt: float = DEFAULT_SIMULATION_STEP_DT) -> GraspPhase
+  - def remove_grasp_phase_by_name(self, phase_name: str) -> bool
+  - def get_grasp_phase_by_name(self, name: str, ignore_case: bool = True) -> GraspPhase | None
+  - def get_grasp_phase_by_index(self, index: int) -> GraspPhase | None
+  - def get_grasp_phases_as_dicts(self) -> list[dict]
+  - def get_grasp_phase_names(self) -> list[str]
+  - def save_config(self, file_path: str, components: list[str] | None = None, overwrite: bool = False)
+  - def load_config(self, file_path: str, components: list[str] | None = None) -> dict[str, str]
+  - def request_workflow_stop(self)
+  - async def simulate_all_grasp_phases(self, render: bool = True, physics_scene_path: str | None = None, isolate_simulation: bool = False, simulate_using_timeline: bool = False) -> bool
+  - async def simulate_single_grasp_phase(self, phase_identifier: str | int, render: bool = True, physics_scene_path: str | None = None, isolate_simulation: bool = False, simulate_using_timeline: bool = False) -> bool
+  - async def evaluate_grasp_poses(self, grasp_poses: list[tuple[Gf.Vec3d, Gf.Quatd]], render: bool = True, physics_scene_path: str | None = None, isolate_simulation: bool = False, simulate_using_timeline: bool = False, progress_callback: callable = None)
+  - async def evaluate_grasp_pose(self, location: Gf.Vec3d, orientation: Gf.Quatd, clear_simulation: bool = True, render: bool = True, physics_scene_path: str | None = None, isolate_simulation: bool = False, simulate_using_timeline: bool = False)
+  - async def evaluate_grasp_pose_by_index(self, index: int, render: bool = True, physics_scene_path: str | None = None, isolate_simulation: bool = False, simulate_using_timeline: bool = False)
+  - def write_grasp_results(self, location: Gf.Vec3d, orientation: Gf.Quatd)
+  - def set_gripper_pose(self, location: Gf.Vec3d, orientation: Gf.Quatd)
+  - def move_gripper_to_grasp_pose(self, index: int, in_world_frame: bool = True)
+  - def store_initial_gripper_pose(self, location: Gf.Vec3d = None, orientation: Gf.Quatd = None)
+  - def get_initial_gripper_pose(self) -> tuple[Gf.Vec3d, Gf.Quatd] | None
+  - def generate_grasp_poses(self, config: dict = None) -> bool
+  - def clear_grasp_poses(self)
+  - def get_grasp_poses(self, in_world_frame: bool = False) -> list[tuple[Gf.Vec3d, Gf.Quatd]]
+  - def get_grasp_pose_at_index(self, index: int, in_world_frame: bool = False) -> tuple[Gf.Vec3d, Gf.Quatd] | None
+  - def update_joint_pregrasp_states_from_current(self, joint_info_list: list[dict] | None = None)
+
+- class GraspPhase
+  - name: str
+  - joint_drive_targets: dict[str, float]
+  - simulation_steps: int
+  - simulation_step_dt: float
+  - def add_joint(self, joint_path: str, target_position: float = 0)
+  - def remove_joint(self, joint_path: str)
+  - def has_joint(self, joint_path: str) -> bool
+  - def get_joint_target(self, joint_path: str) -> float

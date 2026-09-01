@@ -1,0 +1,61 @@
+[package]
+description = "Base Isaac Sim Action and Event Data Generation App"
+title = "Isaac Sim Action and Event Data Generation Base"
+version = "0.4.0"
+keywords = ["experience", "app", "usd"]
+template_name = "spatial_sdg_base"
+
+[dependencies]
+# All the core app components and settings will inherit from the Isaac Sim Base Kit
+"isaacsim.exp.base" = {}
+
+# Action and Event Data Generation extension additional dependencies
+"omni.behavior.scripting.core" = {}
+"omni.flowusd" = {}
+"omni.replicator.core" = {}
+"omni.kit.widget.settings" = {}
+"omni.physx" = {}
+
+# Action and Event Data Generation Headless Extensions
+#############################################
+"omni.metropolis.schema" = { version = "0.0.3", exact = true }
+"omni.metropolis.utils" = { version = "1.1.2", exact = true }
+"omni.metropolis.pipeline" = { version = "0.0.9", exact = true }
+"isaacsim.anim.robot.schema" = { version = "0.1.1", exact = true }
+"isaacsim.anim.robot.core" = { version = "1.4.2", exact = true }
+"isaacsim.anim.robot.bt_nodes" = { version = "0.1.1", exact = true }
+"isaacsim.replicator.agent.schema" = { version = "0.1.1", exact = true }
+"isaacsim.replicator.agent.core" = { version = "1.6.8", exact = true }
+"isaacsim.replicator.caption.core" = { version = "0.7.10", exact = true }
+"isaacsim.replicator.incident.core" = { version = "0.11.8", exact = true }
+"isaacsim.replicator.object.core" = { version = "0.11.12", exact = true }
+"isaacsim.sensors.rtx.placement" = { version = "0.16.10", exact = true }
+"isaacsim.sensors.rtx.calibration" = { version = "0.3.10", exact = true }
+
+# Optional: for benchmark_ira.py and other scripts using isaacsim.benchmark.services
+"isaacsim.benchmark.services" = {}
+
+[settings]
+# to pass tests on Gitlab CI - shader compilation progress bar
+exts."omni.kit.viewport.ready".activity_progress.enabled = false
+app.player.useFixedTimeStepping = true
+
+# Register extension folder from this repo in kit
+# Your application is using Extensions from your applications
+# Here they are setup into a single folder "exts" but you can have you own structure if you need
+# see we also dd the Extension from the Base application using their extscache
+[app.extensions]
+# Don't create extension folders
+mkdirExtFolders = false
+
+# Download extensions into extscache folder
+registryCacheFull = "${app}/../extscache"
+# registryEnabled = false
+
+[settings.app.exts.folders]
+'++' = [
+    "${app}",
+    "${app}/../exts",
+    "${app}/../extscache",
+    "${app}/../extsDeprecated",
+]

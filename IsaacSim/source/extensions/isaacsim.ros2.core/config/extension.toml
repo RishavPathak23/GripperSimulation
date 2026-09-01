@@ -1,0 +1,148 @@
+[package]
+version = "1.9.4"
+category = "Simulation"
+title = "ROS 2 Core"
+description = "The ROS 2 core extension containing backend libraries required to run the ROS 2 bridge."
+keywords = ["isaac", "ROS2"]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/Overview.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+writeTarget.kit = true
+writeTarget.platform = true
+
+[dependencies]
+"isaacsim.core.deprecation_manager" = {}
+"isaacsim.core.experimental.utils" = {}
+"isaacsim.core.nodes" = {}
+"isaacsim.core.rendering_manager" = {}
+"isaacsim.core.simulation_manager" = {}
+"isaacsim.robot.schema" = {}
+"isaacsim.sensors.experimental.rtx" = {}
+"isaacsim.sensors.rtx.nodes" = {}
+"isaacsim.storage.native" = {}
+"omni.pip.compute" = {}
+"omni.replicator.core" = {}
+"omni.syntheticdata" = {}
+"usdrt.scenegraph" = {}
+
+[[python.module]]
+name = "isaacsim.ros2.core"
+
+[[python.module]]
+name = "isaacsim.ros2.core.tests"
+
+[settings]
+# ROS 2 Bridge settings are centralized in the core extension.
+# ROS 2 distributions to fall back to if none were sourced.
+exts."isaacsim.ros2.bridge".ros_distro = "system_default"
+# Whether ROS 2 publishers are allowed to publish even if there is no active subscription for their topics.
+exts."isaacsim.ros2.bridge".publish_without_verification = false
+# Whether to disable multithreading in the *ROS2PublishImage* OmniGraph node.
+exts."isaacsim.ros2.bridge".publish_multithreading_disabled = false
+# Whether to enable the queue-based publish thread in the *ROS2PublishImage* OmniGraph node.
+exts."isaacsim.ros2.bridge".publish_with_queue_thread = true
+# How long the above queue-based publish thread sleeps between publishes in microseconds.
+exts."isaacsim.ros2.bridge".publish_queue_thread_sleep_us = 1000
+# Whether to enable image publishing via NITROS.
+exts."isaacsim.ros2.bridge".enable_nitros_bridge = false
+
+# Note: The core extension uses bridge settings, so no duplicate settings are needed here.
+
+
+[fswatcher.paths]
+exclude = ["*/rclpy/*", "*/bin", "*/__pycache__/*", "*/.git/*"]
+
+[[test]]
+name = "startup"
+args = [
+    "--/app/settings/fabricDefaultStageFrameHistoryCount=3",
+]
+
+[[test]]
+name = "doctest"
+enabled = true
+timeout = 900
+dependencies = [
+    "isaacsim.test.utils",
+]
+# apps = [""]
+args = ["--/app/settings/fabricDefaultStageFrameHistoryCount=3",]
+pythonTests.include = []
+pythonTests.exclude = ["*"]
+cppTests.libraries = ["bin/${lib_prefix}isaacsim.ros2.core.backend_tests${lib_ext}"]
+stdoutFailPatterns.exclude = [
+  "*[Error] Node name * not valid*",
+  "*[Error] Namespace name * not valid*",
+  "*[Error] Topic name * not valid*",
+  '*The NumPy module was reloaded*',
+]
+
+[[test]]
+
+timeout = 900
+dependencies = [
+    "isaacsim.test.utils",
+    "omni.graph.ui",
+]
+
+stdoutFailPatterns.exclude = [
+    '*The NumPy module was reloaded*',
+    "*[Error] [isaacsim.ros2.core.impl.camera_info_utils] Unsupported lens distortion model 'ftheta'. Only 'opencvPinhole' and 'opencvFisheye' are supported. Legacy physical distortion models are no longer supported as of Isaac Sim 6.0. Migrate to OmniLensDistortion schemas (OmniLensDistortionOpenCvPinholeAPI or OmniLensDistortionOpenCvFisheyeAPI)*",
+]
+
+
+args = [
+    "--enable",
+    "omni.kit.loop-isaac",
+    "--reset-user",
+    "--vulkan",
+    "--/app/asyncRendering=0",
+    "--/app/asyncRenderingLowLatency=0",
+    "--/app/fastShutdown=1",
+    "--/app/file/ignoreUnsavedStage=1",
+    "--/app/hydraEngine/waitIdle=0",
+    "--/app/player/useFixedTimeStepping=false",
+    "--/app/renderer/skipWhileMinimized=0",
+    "--/app/renderer/sleepMsOnFocus=0",
+    "--/app/renderer/sleepMsOutOfFocus=0",
+    "--/app/runLoops/main/manualModeEnabled=true",
+    "--/app/runLoops/main/rateLimitEnabled=false",
+    "--/app/settings/fabricDefaultStageFrameHistoryCount=3",
+    "--/app/settings/persistent=0",
+    "--/app/useFabricSceneDelegate=true",
+    "--/app/viewport/createCameraModelRep=0",
+    "--/crashreporter/skipOldDumpUpload=1",
+    "--/exts/omni.usd/locking/onClose=0",
+    "--/omni/kit/plugin/syncUsdLoads=1",
+    "--/omni/replicator/asyncRendering=0",
+    "--/omnihydra/parallelHydraSprimSync=1",
+    '--/persistent/app/stage/upAxis="Z"',
+    "--/persistent/app/viewport/defaults/tickRate=120",
+    "--/persistent/app/viewport/displayOptions=31951",
+    "--/persistent/omni/replicator/captureOnPlay=1",
+    "--/persistent/omnigraph/updateToUsd=0",
+    "--/persistent/physics/visualizationDisplayJoints=0",
+    "--/persistent/renderer/startupMessageDisplayed=1",
+    "--/persistent/simulation/defaultMetersPerUnit=1.0",
+    "--/persistent/simulation/minFrameRate=15",
+    "--/renderer/multiGpu/autoEnable=0",
+    "--/renderer/multiGpu/enabled=0",
+    "--/rtx-transient/dlssg/enabled=0",
+    "--/rtx-transient/resourcemanager/enableTextureStreaming=1",
+    "--/rtx/descriptorSets=360000",
+    "--/rtx/hydra/enableSemanticSchema=1",
+    "--/rtx/hydra/materialSyncLoads=1",
+    "--/rtx/hydra/supportMultiTickRate=true",
+    "--/rtx/materialDb/syncLoads=1",
+    "--/rtx/newDenoiser/enabled=1",
+    "--/rtx/rendering/perSensorTickTlas=true",
+    "--/rtx/reservedDescriptors=900000",
+    ### Extension specific args
+    '--/exts/isaacsim.ros2.bridge/ros_distro = "system_default"',
+    "--/exts/isaacsim.ros2.bridge/publish_without_verification=1",
+
+]
+
+[documentation]
+pages = ["docs/Overview.md", "docs/CHANGELOG.md"]

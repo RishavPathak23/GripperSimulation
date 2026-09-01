@@ -1,0 +1,61 @@
+[package]
+description = "App for checking system requirements and compatibility"
+title = "Isaac Sim Compatibility Checker App"
+version = "6.0.1"
+
+# That makes it browsable in UI with "experience" filter
+keywords = ["app", "isaac-sim", "compatibility"]
+
+[dependencies]
+"isaacsim.app.compatibility_check" = { order = 9999 }
+"omni.kit.uiapp" = {}
+"omni.kit.telemetry" = {}
+"omni.ui" = {}
+
+[settings]
+app.name = "Isaac-Sim_Compatibility_Checker"
+app.version = "6.0.1"
+app.window.title = "Isaac Sim Compatibility Checker App"
+
+app.extensions.enabledCore = []
+app.settings.persistent = true
+app.settings.standalone_mode = true
+
+# controled update rate
+app.runLoops.main.rateLimitEnabled = true
+app.runLoops.main.rateLimitFrequency = 60
+app.runLoops.main.rateLimitUseBusyLoop = false
+
+# window size
+app.window.width = 500
+app.window.height = 545
+app.window.noResize = true
+
+# window center position
+app.window.x = -1
+app.window.y = -1
+
+# icon
+app.window._iconSize = 256
+app.window.iconPath = "${isaacsim.app.compatibility_check}/data/app/isaacsim.png"
+
+# window properties
+app.window.alwaysOnTop = false
+app.window.fullscreen = false
+app.window.noDecorations = false
+app.window.scaleToMonitor = true
+
+app.fastShutdown = true
+
+[settings.app.exts]
+folders = [
+    "${app}/../exts",
+    "${app}/../extscache",
+    "${app}/../extsUser",
+    "${app}/../extsDeprecated",
+]
+
+[settings.exts."omni.kit.registry.nucleus".registries]
+++ = [
+    { name = "isaacsim/prod/6.0", url = "https://ovextensionsprod.blob.core.windows.net/exts/isaacsim/prod/6.0/shared" },
+]

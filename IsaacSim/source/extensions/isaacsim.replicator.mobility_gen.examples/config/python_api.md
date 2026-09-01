@@ -1,0 +1,195 @@
+# Public API for module isaacsim.replicator.mobility_gen.examples:
+
+## Classes
+
+- class HawkCamera(Module)
+  - usd_path: str
+  - resolution: tuple[int, int]
+  - left_camera_path: str
+  - right_camera_path: str
+  - def __init__(self, left: MobilityGenCamera, right: MobilityGenCamera)
+  - class def build(cls, prim_path: str) -> HawkCamera
+  - class def attach(cls, prim_path: str) -> HawkCamera
+
+- class WheeledMobilityGenRobot(MobilityGenRobot)
+  - wheel_dof_names: list[str]
+  - usd_url: str
+  - chassis_subpath: str
+  - wheel_radius: float
+  - wheel_base: float
+  - def __init__(self, prim_path: str, articulation: Articulation, controller: DifferentialController, front_camera: Module | None = None)
+  - class def build(cls, prim_path: str) -> WheeledRobot
+  - def write_action(self, step_size: float)
+
+- class PolicyMobilityGenRobot(MobilityGenRobot)
+  - usd_url: str
+  - articulation_path: str
+  - def __init__(self, prim_path: str, articulation: Articulation, controller: H1FlatTerrainPolicy | SpotFlatTerrainPolicy, front_camera: Module | None = None)
+  - class def build_policy(cls, prim_path: str) -> H1FlatTerrainPolicy | SpotFlatTerrainPolicy
+  - class def build(cls, prim_path: str) -> PolicyMobilityGenRobot
+  - def write_action(self, step_size: float)
+  - def set_pose_2d(self, pose: Pose2d)
+
+- class JetbotRobot(WheeledMobilityGenRobot)
+  - physics_dt: float
+  - z_offset: float
+  - chase_camera_base_path: str
+  - chase_camera_x_offset: float
+  - chase_camera_z_offset: float
+  - chase_camera_tilt_angle: float
+  - occupancy_map_radius: float
+  - occupancy_map_z_min: float
+  - occupancy_map_z_max: float
+  - occupancy_map_cell_size: float
+  - occupancy_map_collision_radius: float
+  - front_camera_base_path: str
+  - front_camera_rotation: Tuple
+  - front_camera_translation: Tuple
+  - front_camera_type: HawkCamera
+  - keyboard_linear_velocity_gain: float
+  - keyboard_angular_velocity_gain: float
+  - gamepad_linear_velocity_gain: float
+  - gamepad_angular_velocity_gain: float
+  - random_action_linear_velocity_range: tuple[float, float]
+  - random_action_angular_velocity_range: tuple[float, float]
+  - random_action_linear_acceleration_std: float
+  - random_action_angular_acceleration_std: float
+  - random_action_grid_pose_sampler_grid_size: float
+  - path_following_speed: float
+  - path_following_angular_gain: float
+  - path_following_stop_distance_threshold: float
+  - path_following_forward_angle_threshold: Unknown
+  - path_following_target_point_offset_meters: float
+  - wheel_dof_names: list[str]
+  - usd_url: str
+  - chassis_subpath: str
+  - wheel_base: float
+  - wheel_radius: float
+
+- class CarterRobot(WheeledMobilityGenRobot)
+  - physics_dt: float
+  - z_offset: float
+  - chase_camera_base_path: str
+  - chase_camera_x_offset: float
+  - chase_camera_z_offset: float
+  - chase_camera_tilt_angle: float
+  - occupancy_map_radius: float
+  - occupancy_map_z_min: float
+  - occupancy_map_z_max: float
+  - occupancy_map_cell_size: float
+  - occupancy_map_collision_radius: float
+  - front_camera_base_path: str
+  - front_camera_rotation: Tuple
+  - front_camera_translation: Tuple
+  - front_camera_type: HawkCamera
+  - keyboard_linear_velocity_gain: float
+  - keyboard_angular_velocity_gain: float
+  - gamepad_linear_velocity_gain: float
+  - gamepad_angular_velocity_gain: float
+  - random_action_linear_velocity_range: tuple[float, float]
+  - random_action_angular_velocity_range: tuple[float, float]
+  - random_action_linear_acceleration_std: float
+  - random_action_angular_acceleration_std: float
+  - random_action_grid_pose_sampler_grid_size: float
+  - path_following_speed: float
+  - path_following_angular_gain: float
+  - path_following_stop_distance_threshold: float
+  - path_following_forward_angle_threshold: Unknown
+  - path_following_target_point_offset_meters: float
+  - wheel_dof_names: list[str]
+  - usd_url: str
+  - chassis_subpath: str
+  - wheel_base: float
+  - wheel_radius: float
+
+- class H1Robot(PolicyMobilityGenRobot)
+  - physics_dt: float
+  - z_offset: float
+  - chase_camera_base_path: str
+  - chase_camera_x_offset: float
+  - chase_camera_z_offset: float
+  - chase_camera_tilt_angle: float
+  - occupancy_map_radius: float
+  - occupancy_map_z_min: float
+  - occupancy_map_z_max: float
+  - occupancy_map_cell_size: float
+  - occupancy_map_collision_radius: float
+  - front_camera_base_path: str
+  - front_camera_rotation: Tuple
+  - front_camera_translation: Tuple
+  - front_camera_type: HawkCamera
+  - keyboard_linear_velocity_gain: float
+  - keyboard_angular_velocity_gain: float
+  - gamepad_linear_velocity_gain: float
+  - gamepad_angular_velocity_gain: float
+  - random_action_linear_velocity_range: tuple[float, float]
+  - random_action_angular_velocity_range: tuple[float, float]
+  - random_action_linear_acceleration_std: float
+  - random_action_angular_acceleration_std: float
+  - random_action_grid_pose_sampler_grid_size: float
+  - path_following_speed: float
+  - path_following_angular_gain: float
+  - path_following_stop_distance_threshold: float
+  - path_following_forward_angle_threshold: Unknown
+  - path_following_target_point_offset_meters: float
+  - usd_url: Unknown
+  - articulation_path: str
+  - controller_z_offset: float
+  - class def build_policy(cls, prim_path: str) -> H1FlatTerrainPolicy
+
+- class SpotRobot(PolicyMobilityGenRobot)
+  - physics_dt: float
+  - z_offset: float
+  - chase_camera_base_path: str
+  - chase_camera_x_offset: float
+  - chase_camera_z_offset: float
+  - chase_camera_tilt_angle: float
+  - occupancy_map_radius: float
+  - occupancy_map_z_min: float
+  - occupancy_map_z_max: float
+  - occupancy_map_cell_size: float
+  - occupancy_map_collision_radius: float
+  - front_camera_base_path: str
+  - front_camera_rotation: Tuple
+  - front_camera_translation: Tuple
+  - front_camera_type: HawkCamera
+  - keyboard_linear_velocity_gain: float
+  - keyboard_angular_velocity_gain: float
+  - gamepad_linear_velocity_gain: float
+  - gamepad_angular_velocity_gain: float
+  - random_action_linear_velocity_range: tuple[float, float]
+  - random_action_angular_velocity_range: tuple[float, float]
+  - random_action_linear_acceleration_std: float
+  - random_action_angular_acceleration_std: float
+  - random_action_grid_pose_sampler_grid_size: float
+  - path_following_speed: float
+  - path_following_angular_gain: float
+  - path_following_stop_distance_threshold: float
+  - path_following_forward_angle_threshold: Unknown
+  - path_following_target_point_offset_meters: float
+  - usd_url: Unknown
+  - articulation_path: str
+  - controller_z_offset: float
+  - class def build_policy(cls, prim_path: str) -> SpotFlatTerrainPolicy
+
+- class KeyboardTeleoperationScenario(TeleoperationScenario)
+  - def __init__(self, robot: MobilityGenRobot, occupancy_map: OccupancyMap)
+  - def reset(self)
+  - def step(self, step_size: float) -> bool
+
+- class GamepadTeleoperationScenario(TeleoperationScenario)
+  - def __init__(self, robot: MobilityGenRobot, occupancy_map: OccupancyMap)
+  - def reset(self)
+  - def step(self, step_size: float) -> bool
+
+- class RandomAccelerationScenario(MobilityGenScenario)
+  - def __init__(self, robot: MobilityGenRobot, occupancy_map: OccupancyMap)
+  - def reset(self)
+  - def step(self, step_size: float) -> bool
+
+- class RandomPathFollowingScenario(MobilityGenScenario)
+  - def __init__(self, robot: MobilityGenRobot, occupancy_map: OccupancyMap)
+  - def set_random_target_path(self)
+  - def reset(self)
+  - def step(self, step_size: float) -> bool
+  - def get_visualization_image(self) -> PIL.Image.Image

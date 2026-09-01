@@ -1,0 +1,62 @@
+{
+    "isaacsim.sensors.physics.IsaacReadJointState": {
+        "version": 1,
+        "icon": "icons/isaac-sim.svg",
+        "description": "Node that reads full joint state (names, positions, velocities, efforts, DOF types, stage units) from an articulation",
+        "language": "cpp",
+        "categoryDefinitions": "config/CategoryDefinition.json",
+        "categories": "isaacPhysicsSensor",
+        "metadata": {
+            "uiName": "Isaac Read Joint State Node"
+        },
+        "inputs": {
+            "execIn": {
+                "type": "execution",
+                "description": "The input execution port"
+            },
+            "prim": {
+                "type": "target",
+                "description": "Path to the articulation root prim",
+                "metadata": {
+                    "uiName": "Prim Path"
+                }
+            }
+        },
+        "outputs": {
+            "execOut": {
+                "type": "execution",
+                "description": "Output execution triggers when sensor has data"
+            },
+            "sensorTime": {
+                "type": "float",
+                "description": "Timestamp of the sensor reading",
+                "default": 0
+            },
+            "jointNames": {
+                "type": "token[]",
+                "description": "Joint names in articulation order"
+            },
+            "jointPositions": {
+                "type": "double[]",
+                "description": "Joint positions (rad or m)"
+            },
+            "jointVelocities": {
+                "type": "double[]",
+                "description": "Joint velocities (rad/s or m/s)"
+            },
+            "jointEfforts": {
+                "type": "double[]",
+                "description": "Joint efforts (Nm or N)"
+            },
+            "jointDofTypes": {
+                "type": "uchar[]",
+                "description": "Per-DOF type: 0 = rotation (revolute), 1 = translation (prismatic)"
+            },
+            "stageMetersPerUnit": {
+                "type": "float",
+                "description": "Stage meters per USD unit for SI conversion",
+                "default": 0.0
+            }
+        }
+    }
+}

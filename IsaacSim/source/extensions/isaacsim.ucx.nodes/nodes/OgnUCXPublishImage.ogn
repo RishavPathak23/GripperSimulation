@@ -1,0 +1,95 @@
+{
+    "UCXPublishImage":{
+        "version": 1,
+        "icon": "icons/isaac-sim.svg",
+        "description": [
+            "This node publishes camera images via UCX communication"
+        ],
+        "metadata": {
+            "uiName": "UCX Publish Image"
+        },
+        "categoryDefinitions": "config/CategoryDefinition.json",
+        "categories": "isaacUcx",
+        "inputs": {
+            "execIn": {
+                "type": "execution",
+                "description": "The input execution port"
+            },
+            "port": {
+                "type": "uint",
+                "description": "Port number for UCX communication",
+                "default": 13337
+            },
+            "tag": {
+                "type": "uint64",
+                "description": "UCX tag for message identification",
+                "default": 10
+            },
+            "timeStamp": {
+                "type": "double",
+                "description": "Timestamp in seconds",
+                "uiName": "Timestamp",
+                "default": 0.0
+            },
+            "data":{
+                "type": "uchar[]",
+                "description": "Buffer array data",
+                "memoryType": "any",
+                "default": [],
+                "optional": true
+            },
+            "width": {
+                "type": "uint",
+                "description": "Image width in pixels",
+                "default" : 0,
+                "optional": true
+            },
+            "height": {
+                "type": "uint",
+                "description": "Image height in pixels",
+                "default" : 0,
+                "optional": true
+            },
+            "encoding": {
+                "type": "token",
+                "description": "Image encoding format",
+                "metadata": {
+                    "allowedTokens": {
+                        "Type_RGB8": "rgb8",
+                        "Type_RGBA8": "rgba8",
+                        "Type_BGRA8": "bgra8",
+                        "Type_32FC1": "32FC1"
+                    }
+                },
+                "default": "rgb8",
+                "optional": true
+            },
+            "dataPtr": {
+                "type": "uint64",
+                "description": "Pointer to the raw image array data",
+                "default": 0
+            },
+            "cudaDeviceIndex": {
+                "type": "int",
+                "description": "Index of the device where the data lives (-1 for host data)",
+                "default": -1
+            },
+            "bufferSize": {
+                "type": "uint",
+                "description": "Size (in bytes) of the buffer (0 if the input is a texture)",
+                "default": 0
+            },
+            "format": {
+                "type": "uint64",
+                "description": "Format",
+                "default": 0
+            },
+            "sendCudaBuffer": {
+                "type": "bool",
+                "description": "When true, passes the raw CUDA buffer pointer to UCX and sends a two-message protocol (metadata FlatBuffer + raw GPU tensor). UCX selects the transport — GPU-direct RDMA, NVLink, or TCP with host staging. Receiver must set tensor_buffer_size. When false, copies frame data into the FlatBuffer on the CPU.",
+                "default": true
+            }
+        }
+    }
+}
+

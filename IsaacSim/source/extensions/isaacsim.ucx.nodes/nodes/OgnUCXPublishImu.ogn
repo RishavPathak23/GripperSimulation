@@ -1,0 +1,88 @@
+{
+    "UCXPublishImu":{
+        "version": 1,
+        "icon": "icons/isaac-sim.svg",
+        "description": [
+            "This node publishes IMU data via UCX communication"
+        ],
+        "metadata": {
+            "uiName": "UCX Publish IMU"
+        },
+        "categoryDefinitions": "config/CategoryDefinition.json",
+        "categories": "isaacUcx",
+        "inputs": {
+            "execIn": {
+                "type": "execution",
+                "description": "The input execution port"
+            },
+            "port": {
+                "type": "uint",
+                "description": "Port number for UCX communication",
+                "default": 13337
+            },
+            "tag": {
+                "type": "uint64",
+                "description": "UCX tag for message identification",
+                "default": 2
+            },
+            "timeStamp": {
+                "type": "double",
+                "description": "Timestamp in seconds",
+                "uiName": "Timestamp",
+                "default": 0.0
+            },
+            "timeoutMs": {
+                "type": "uint",
+                "description": "Timeout in milliseconds for UCX send requests. If 0, waits indefinitely.",
+                "uiName": "Timeout (ms)",
+                "default": 0
+            },
+            "frameId": {
+                "type": "string",
+                "description": "Frame ID for IMU data",
+                "default": "sim_imu"
+            },
+            "publishOrientation": {
+                "type": "bool",
+                "description": "Include orientation in message",
+                "default": true
+            },
+            "publishLinearAcceleration": {
+                "type": "bool",
+                "description": "Include linear acceleration in message",
+                "default": true
+            },
+            "publishAngularVelocity": {
+                "type": "bool",
+                "description": "Include angular velocity in message",
+                "default": true
+            },
+            "orientation": {
+                "type": "quatd[4]",
+                "description": "Orientation as a quaternion (IJKR)",
+                "optional": true,
+                "default": [0.0, 0.0, 0.0, 1.0]
+            },
+            "linearAcceleration": {
+                "type": "vectord[3]",
+                "description": "Linear acceleration vector in m/s^2",
+                "optional": true,
+                "default": [0.0, 0.0, 0.0]
+            },
+            "angularVelocity": {
+                "type": "vectord[3]",
+                "description": "Angular velocity vector in rad/s",
+                "optional": true,
+                "default": [0.0, 0.0, 0.0]
+            }
+        },
+        "outputs": {
+            "execOut": {
+                "type": "execution",
+                "description": "The output execution port"
+            }
+        }
+    }
+}
+
+

@@ -1,0 +1,35 @@
+[package]
+version = "2.6.1"
+category = "Simulation"
+title = "UI components for the Isaac Sim Occupancy Map"
+description = "UI components for the Isaac Sim Occupancy Map provides UI for 2D Occupancy Map Generation"
+keywords = ["isaac", "occupancy map"]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/Overview.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+writeTarget.kit = true
+
+[dependencies]
+"isaacsim.asset.gen.omap" = {}
+"isaacsim.core.deprecation_manager" = {}
+"isaacsim.core.experimental.utils" = {}
+"isaacsim.gui.components" = {}
+
+[[python.module]]
+name = "isaacsim.asset.gen.omap.ui"
+
+[[python.module]]
+name = "isaacsim.asset.gen.omap.ui.tests"
+
+[[test]]
+dependencies = [
+    "omni.kit.ui_test",
+]
+
+stdoutFailPatterns.exclude = [
+    '*The NumPy module was reloaded*',
+]
+
+[documentation]
+pages = ["docs/Overview.md", "docs/CHANGELOG.md"]

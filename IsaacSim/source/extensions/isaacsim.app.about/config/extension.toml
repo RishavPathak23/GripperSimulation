@@ -1,0 +1,28 @@
+[package]
+version = "2.3.1"
+category = "Internal"
+title = "Isaac Sim About Window"
+description = "Displays an About dialog window showing the application name, version, Kit SDK version, client library version, and a list of all loaded plugins."
+keywords = ["isaac", "about"]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/Overview.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+writeTarget.kit = true
+
+[dependencies]
+"isaacsim.core.version" = {}
+"omni.client" = {}
+"omni.kit.menu.utils" = {}
+"omni.kit.uiapp" = {}
+
+[[python.module]]
+name = "isaacsim.app.about"
+
+[[test]]
+dependencies = [
+    "omni.kit.ui_test",  # ui_test is required by test_window_about.py for UI automation.
+]
+
+[documentation]
+pages = ["docs/Overview.md", "docs/CHANGELOG.md"]

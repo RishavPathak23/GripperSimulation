@@ -1,0 +1,56 @@
+[package]
+version = "0.4.3"
+category = "other"
+title = "Content Browser"
+description = "Extends the Omniverse content browser with an Isaac Sim collection providing quick access to curated robot models, environments, materials, and sensor assets."
+keywords = ["browser","assets","content"]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/Overview.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+writeTarget.kit = true
+
+[dependencies]
+"isaacsim.storage.native" = {}
+"omni.kit.widget.filebrowser" = {}
+"omni.kit.window.content_browser" = {}
+"omni.kit.window.filepicker" = {}
+"omni.simready.content.browser" = {}
+"omni.usd.core" = {}
+
+[[python.module]]
+name = "isaacsim.gui.content_browser"
+
+# define the Python module for tests
+[[python.module]]
+name = "isaacsim.gui.content_browser.tests"
+
+[settings]
+# Timeout for resolving the content browser settings.
+exts."isaacsim.gui.content_browser".timeout = 5
+
+# Folder paths to display in the content browser, relative to persistent.isaac.asset_root.default.
+# Full URLs (http://, https://, omniverse://) are used as-is; relative paths are joined with the asset root.
+exts."isaacsim.gui.content_browser".folders = [
+    "/Isaac/Robots",
+    "/Isaac/Robots_Multiphysics",
+    "/Isaac/Environments",
+    "/Isaac/IsaacLab",
+    "/Isaac/Materials",
+    "/Isaac/People",
+    "/Isaac/Props",
+    "/Isaac/Samples",
+    "/Isaac/Sensors",
+    "/Isaac/SimReady",
+]
+
+[[test]]
+name = "startup"
+enabled = false
+
+[[test]]
+enabled = true
+
+# disable startup test
+[documentation]
+pages = ["docs/Overview.md","docs/SETTINGS.md", "docs/CHANGELOG.md"]

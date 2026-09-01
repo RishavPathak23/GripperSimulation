@@ -1,0 +1,41 @@
+# Extension configuration file.
+# Visit the "Extension configuration file (extension.toml)" section for more details:
+# https://docs.omniverse.nvidia.com/kit/docs/kit-manual/latest/guide/extensions_advanced.html
+#
+
+[package]
+version = "6.1.3"
+category = "simulation"
+title = "motion_generation"
+description = "Contains APIs for interfacing external motion generation code to isaacsim."
+keywords = ["motion","generation","api","planning","kinematics","trajectory"]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/Overview.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+
+[dependencies]
+"isaacsim.core.experimental.objects" = {}
+"isaacsim.core.experimental.utils" = {}
+"isaacsim.robot_motion.schema" = {}
+
+[[python.module]]
+name = "isaacsim.robot_motion.experimental.motion_generation"
+
+# define the Python module for tests
+[[python.module]]
+name = "isaacsim.robot_motion.experimental.motion_generation.tests"
+
+# test dependencies
+[[test]]
+enabled = true
+dependencies = [
+    "isaacsim.storage.native"
+]
+
+stdoutFailPatterns.exclude = [
+    '*The NumPy module was reloaded*',
+]
+
+[documentation]
+pages = ["docs/Overview.md", "docs/CHANGELOG.md"]

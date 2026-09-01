@@ -1,0 +1,32 @@
+[package]
+description = "A trimmed down app for use with python samples"
+title = "Isaac Sim Python"
+version = "6.0.1"
+
+keywords = ["experience", "app", "usd", "isaacsim"] # That makes it browsable in UI with "experience" filter
+
+
+[dependencies]
+"isaacsim.exp.base" = {}
+
+[settings.app]
+name = "Isaac-Sim Python"
+version = "6.0.1"
+settings.persistent = false        # settings reset on each run with this app
+window.title = "Isaac Sim Python"
+vulkan = true                      # Explicitly enable Vulkan
+enableDeveloperWarnings = false    # disable developer warnings to reduce log noise
+
+[settings.app.exts.folders]
+'++' = [
+    "${app}",
+    "${app}/../exts",
+    "${app}/../extscache",
+    "${app}/../extsUser",
+    "${app}/../extsDeprecated",
+]
+
+[settings.exts."omni.kit.registry.nucleus".registries]
+++ = [
+    { name = "isaacsim/prod/6.0", url = "https://ovextensionsprod.blob.core.windows.net/exts/isaacsim/prod/6.0/shared" },
+]

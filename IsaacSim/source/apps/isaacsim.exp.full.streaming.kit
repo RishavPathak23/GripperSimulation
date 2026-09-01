@@ -1,0 +1,69 @@
+[package]
+description = "Headless Isaac Sim with Livestream using WebRTC"
+execFile = "isaac-sim.streaming"
+title = "Isaac Sim Full Streaming"
+version = "6.0.1"
+
+# That makes it browsable in UI with "experience" filter
+keywords = ["experience", "app", "usd"]
+
+[dependencies]
+"isaacsim.exp.full" = {}
+"omni.kit.livestream.app" = {}
+"omni.kit.widget.cache_indicator" = { optional = true }
+
+[settings]
+app.name = "Isaac-Sim Streaming"
+app.version = "6.0.1"
+app.vulkan = true                        # Explicitly enable Vulkan
+app.enableDeveloperWarnings = false      # disable developer warnings to reduce log noise
+
+[settings.app.exts.folders]
+'++' = [
+    "${app}",
+    "${app}/../exts",
+    "${app}/../extscache",
+    "${app}/../extsUser",
+    "${app}/../extsDeprecated",
+]
+
+[settings.app.window]
+hideUi = false
+title = "Isaac Sim Full Streaming"
+drawMouse = false
+
+[settings.app.livestream]
+allowResize = true
+outDirectory = "${data}"
+
+[settings.app.extensions]
+excluded = [
+    "omni.kit.widget.cache_indicator",
+]
+
+[settings.log.channels]
+# Carb log channel based logging (consistent with other Kit extensions)
+# "omni.kit.livestream.streamsdk" = "error" # StreamSDK specific logging
+# "omni.kit.livestream.webrtc" = "info"     # WebRTC extension logging
+# "omni.kit.livestream.app" = "info"        # App extension logging
+
+[settings.exts."omni.kit.livestream.app"]
+# Primary application stream settings
+primaryStream.signalPort = 49100
+primaryStream.streamPort = 47998
+# primaryStream.publicIp = ""
+primaryStream.allowDynamicResize = true
+primaryStream.enableEventTracing = true
+primaryStream.enableOpenTelemetry = false
+primaryStream.streamType = "webrtc"
+
+[settings.exts."omni.services.livestream.session"]
+# Session management settings
+quitOnSessionEnded = true
+resumeTimeoutSeconds = 30
+waitForSessionReadyEvent = false
+
+[settings.exts."omni.kit.registry.nucleus".registries]
+++ = [
+    { name = "isaacsim/prod/6.0", url = "https://ovextensionsprod.blob.core.windows.net/exts/isaacsim/prod/6.0/shared" },
+]

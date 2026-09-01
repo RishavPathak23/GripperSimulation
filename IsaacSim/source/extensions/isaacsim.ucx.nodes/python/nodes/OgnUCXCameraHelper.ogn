@@ -1,0 +1,62 @@
+{
+    "UCXCameraHelper": {
+        "version": 1,
+        "icon": "icons/isaac-sim.svg",
+        "description": "Helper node to read RGB data from a render product for UCX publishing",
+        "language": "Python",
+        "categoryDefinitions": "config/CategoryDefinition.json",
+        "categories": "isaacUcx",
+        "metadata": {
+            "uiName": "UCX Camera Helper"
+        },
+        "inputs": {
+            "execIn": {
+                "type": "execution",
+                "description": "Triggering this causes the sensor pipeline to be generated"
+            },
+            "port": {
+                "type": "uint64",
+                "description": "UCX port to publish",
+                "default": 13337
+            },
+            "tag": {
+                "type": "uint64",
+                "description": "UCX tag for message identification. Default is FNV-1a 32-bit hash of 'isaac.Image'.",
+                "default": 270059627
+            },
+            "renderProductPath": {
+                "type": "token",
+                "description": "Path of the render product used for capturing data"
+            },
+            "resetSimulationTimeOnStop": {
+                "type": "bool",
+                "description": "If True the simulation time will reset when stop is pressed, False means time increases monotonically. This setting is ignored if useSystemTime is enabled.",
+                "uiName": "Reset Simulation Time On Stop",
+                "default": true
+            },
+            "useSystemTime": {
+                "type": "bool",
+                "description": "If True, system timestamp will be included in messages. If False, simulation timestamp will be included in messages",
+                "default": false
+            },
+            "frameSkipCount": {
+                "type": "uint",
+                "description": "Specifies the number of simulation frames to skip between each message publish. (e.g. Set to 0 to publish each frame. Set 1 to publish every other frame)",
+                "default": 0,
+                "deprecated": "Frame skipping is deprecated. Control publish rate by setting omni:sensor:tickRate on the sensor prim instead."
+            },
+            "sendCudaBuffer": {
+                "type": "bool",
+                "description": "When true, passes the raw CUDA buffer to UCX for transport. UCX selects the transport automatically. Receiver must set tensor_buffer_size. When false, copies frame data to CPU before sending.",
+                "default": true
+            }
+        },
+        "outputs": {
+            "execOut": {
+                "type": "execution",
+                "description": "The output execution port"
+            }
+        }
+    }
+}
+

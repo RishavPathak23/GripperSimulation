@@ -1,0 +1,27 @@
+[package]
+version = "1.2.5"
+category = "Simulation"
+title = "Isaac Sim Asset Transformer"
+description = "Python-only extension providing asset transformation utilities"
+keywords = ["isaac", "assets", "transform"]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/Overview.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+
+[dependencies]
+"omni.usd.libs" = {}
+
+[[python.module]]
+name = "isaacsim.asset.transformer"
+
+[[python.module]]
+name = "isaacsim.asset.transformer.tests"
+
+[[test]]
+stdoutFailPatterns.exclude = [
+    "*[isaacsim.asset.transformer.manager] Rule '*' failed*",
+]
+
+[documentation]
+pages = ["docs/Overview.md", "docs/CHANGELOG.md"]

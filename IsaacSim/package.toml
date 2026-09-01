@@ -1,0 +1,151 @@
+########################################################################################################################
+# Memo:
+########################################################################################################################
+
+# This file is used to configure content of packages.
+
+# Mappings ($ string substitutions). Name and examples:
+# |==========================================================
+# | $platform      | 'windows-x86_64'     | 'linux-x86_64'  |
+# |----------------------------------------------------------
+# | $lib_ext       | '.dll'               | '.so'           |
+# | $lib_prefix    | ''                   | 'lib.'          |
+# | $bindings_ext  | '.pyd'               | '.so'           |
+# | $exe_ext       | '.exe'               | ''              |
+# | $shell_ext     | '.bat'               | '.sh'           |
+# |==========================================================
+#
+# |==========================================================
+# | $config        | 'debug'              | 'release'       |
+# |==========================================================
+
+# Filters. For example, if packaging carb_sdk, debug, on linux-x86_64 all those toml keys will be used for this package:
+# [carb_sdk.linux-x86_64]
+# [carb_sdk.debug]
+# [carb_sdk.linux.debug]
+# So you can use those in any order as a keys: ["carb_sdk", "linux-x86_64", "debug", "linux", "x86_64"]
+
+
+########################################################################################################################
+# Common section:
+########################################################################################################################
+
+files = []
+
+########################################################################################################################
+# isaac-sim package
+########################################################################################################################
+
+[isaac-sim]
+files = [
+    ["**"],
+]
+
+files_exclude = [
+    ["**/*.pyc"],
+    ["**/*.pdb"],
+    ["**/*.exp"],
+    ["**/*.a"], # static libs
+    ["kit/data/**"], # This can contain portable files we don't want to package
+    ["extsbuild/**"],
+    ["tests/tests-internal*"],
+    ["tests/tests-docker*"],
+    ["tests/tests-startup.extscache*"],
+    ["tests/tests-omni.importer.onshape*"],
+    ["kit/exts/omni.kit.extpath.git/**"],
+    ["**/.git/**"],
+]
+
+[isaac-sim-standalone]
+files = [
+    ["**"]
+]
+files_exclude = [
+    ["**/*.pyc"],
+    ["**/*.pdb"],
+    ["**/*.exp"],
+    ["**/isaacsim.ros2.**/*.a"],
+    ["**/extscache/**/*.a"],
+    ["**/pip_prebundle/**/*.a"],
+    ["apps/exts.deps.generated.kit"],
+    ["apps/isaacsim.exp.extscache.*"],
+    ["kit/data/**"], # This can contain portable files we don't want to package
+    ["kit/logs/**"],
+    ["logs/**"],
+    ["extsbuild/**"],
+    ["tests/tests-internal*"],
+    ["tests/tests-docker*"],
+    ["tests/tests-external*"], # internal tests only
+    ["dockertests/**"],
+    ["tests-external/**"],
+    ["exts/omni.isaac.core_archive/pip_prebundle/bin/**"],
+    ["tests/tests-startup.extscache*"],
+    ["tests/tests-omni.importer.onshape*"],
+    ["kit/exts/omni.kit.extpath.git/**"],
+    ["**/.git/**"],
+    ["dev/**"],
+    ["omni.isaac.sim*"],
+    ["pull_kit_sdk*"],
+    ["run_all_*"],
+    ["compile_commands.json"],
+    # Exclude windows pip installed binaries, they aren't valid to use currently (embedded interpreter path) and fail codesigning
+    ["exts/*/pip_*/**/*.exe"],
+    ["extscache/*/pip_*/**/*.exe"],
+]
+
+[isaac-sim-standalone.linux-x86_64]
+files_strip = [
+    ["**/*.so"],
+]
+
+files_strip_exclude = [
+    ["extscache/omni.kit.pip_archive*/pip_prebundle/**"],
+    ["extsDeprecated/omni.isaac.ml_archive/pip_prebundle/**"],
+    ["exts/isaacsim.pip.newton/pip_prebundle/**"],
+    ["exts/isaacsim.ucx.core/pip_prebundle/**"],
+    ["exts/isaacsim.ucx.core/bin/libuc*"],
+    ["exts/isaacsim.ucx.core/bin/librmm.so*"],
+    ["exts/isaacsim.ucx.core/bin/librapids_logger.so*"],
+    ["exts/isaacsim.ucx.core/bin/ucx/**"],
+    ["exts/omni.isaac.core_archive/pip_prebundle/**"],
+    ["exts/omni.pip.cloud/pip_prebundle/**"],
+    ["exts/omni.pip.compute/pip_prebundle/**"],
+    ["kit/exts/omni.kit.pip_archive/pip_prebundle/**"],
+    ["extscache/omni.kit.livestream.*/**"],
+]
+
+[isaac-sim-standalone.linux-x86_64.release]
+files = [
+    ["../../docs/isaac-sim/latest/py/**", "docs/py/"] # linux ext api docs
+]
+
+[isaac-sim-standalone.linux-aarch64]
+files_strip = [
+    ["**/*.so"],
+]
+
+files_strip_exclude = [
+    ["extscache/omni.kit.pip_archive*/pip_prebundle/**"],
+    ["extsDeprecated/omni.isaac.ml_archive/pip_prebundle/**"],
+    ["exts/isaacsim.pip.newton/pip_prebundle/**"],
+    ["exts/isaacsim.ucx.core/pip_prebundle/**"],
+    ["exts/isaacsim.ucx.core/bin/libuc*"],
+    ["exts/isaacsim.ucx.core/bin/librmm.so*"],
+    ["exts/isaacsim.ucx.core/bin/librapids_logger.so*"],
+    ["exts/isaacsim.ucx.core/bin/ucx/**"],
+    ["exts/omni.isaac.core_archive/pip_prebundle/**"],
+    ["exts/omni.pip.cloud/pip_prebundle/**"],
+    ["exts/omni.pip.compute/pip_prebundle/**"],
+    ["kit/exts/omni.kit.pip_archive/pip_prebundle/**"],
+    ["extscache/omni.kit.livestream.*/**"],
+]
+
+[isaac-sim-standalone.windows-x86_64]
+files = [
+    ["exts/omni.pip.compute/pip_prebundle/scipy/_lib"],
+    # ["../../docs/isaac-sim/latest/py/**", "docs/py/"] # windows ext api docs
+]
+files_exclude = [
+    ["standalone_examples/cortex/**"], # Cortex not shipped on windows
+    ["exts/isaacsim.asset.exporter.urdf/pip_prebundle/bin/**"], # ISIM-2584 remove because of malware
+]

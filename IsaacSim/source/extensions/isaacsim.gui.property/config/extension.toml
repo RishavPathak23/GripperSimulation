@@ -1,0 +1,47 @@
+[package]
+version = "1.6.4"
+category = "Simulation"
+title = "Isaac Sim Property Extensions"
+description = "Adds Isaac Sim Specific Property Utils"
+keywords = ["isaac", "property"]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/Overview.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+writeTarget.kit = true
+
+[dependencies]
+"isaacsim.core.deprecation_manager" = {}
+"isaacsim.gui.components" = {}
+"isaacsim.robot.schema" = {}
+"isaacsim.robot_motion.schema" = {}
+"omni.kit.actions.core" = {}
+"omni.kit.menu.utils" = {}
+"omni.kit.pip_archive" = {}
+"omni.kit.property.usd" = {}
+"omni.kit.uiapp" = {}
+"omni.kit.window.property" = {}
+"omni.physics.physx" = {}
+"omni.usd" = {}
+
+[[python.module]]
+name = "isaacsim.gui.property"
+
+[[python.module]]
+name = "isaacsim.gui.property.tests"
+
+[[test]]
+name = "startup"
+
+[[test]]
+timeout = 120
+dependencies = [
+    "omni.kit.ui_test",
+]
+
+stdoutFailPatterns.exclude = [
+    '*The NumPy module was reloaded*',
+]
+
+[documentation]
+pages = ["docs/Overview.md", "docs/CHANGELOG.md"]

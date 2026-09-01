@@ -1,0 +1,52 @@
+# Extension configuration file.
+# Visit the "Extension configuration file (extension.toml)" section for more details:
+# https://docs.omniverse.nvidia.com/kit/docs/kit-manual/latest/guide/extensions_advanced.html
+#
+
+[package]
+version = "1.3.1"
+category = "simulation"
+title = "cumotion"
+description = "Access to cuMotion planners under the isaacsim motion generation API."
+keywords = ["motion", "generation", "cumotion", "planning","rmpflow", "rmp", "trajectory"]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/Overview.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+writeTarget.kit = true
+writeTarget.platform = true # pip prebundle makes this extension os specific
+writeTarget.python = true
+
+[dependencies]
+"isaacsim.core.experimental.materials" = {}
+"isaacsim.core.experimental.prims" = {}
+"isaacsim.robot_motion.experimental.motion_generation" = {}
+"omni.kit.pip_archive" = {} # import the base kit python archive
+
+[[python.module]]
+path = "pip_prebundle"
+
+# define the Python module that the extension provides
+[[python.module]]
+name = "isaacsim.robot_motion.cumotion"
+
+# define the Python module for tests
+[[python.module]]
+name = "isaacsim.robot_motion.cumotion.tests"
+
+[[test]]
+name = "startup"
+enabled = true
+
+[[test]]
+enabled = true
+dependencies = [
+]
+
+stdoutFailPatterns.exclude = [    
+    '*The NumPy module was reloaded*',
+    "*UserWarning: Trajectory optimizer failed with status: *",
+]
+
+[documentation]
+pages = ["docs/Overview.md", "docs/CHANGELOG.md"]

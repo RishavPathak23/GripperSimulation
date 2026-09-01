@@ -1,0 +1,299 @@
+[package]
+version = "2.4.5"
+category = "SyntheticData"
+title = "Isaac Sim Replicator Synthetic Data Recorder"
+description = "The extension provides a UI to record synthetic data using Replicator writers. By default the UI uses the Replicator BasicWriter, it however also supports custom writers with custom parameters loaded through config files as key-value pairs."
+keywords = ["isaac", "synthetic", "recorder", "sdg"]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/Overview.md"
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+writeTarget.kit = true
+
+[dependencies]
+"isaacsim.gui.components" = {}
+"omni.kit.menu.utils" = {}
+"omni.kit.viewport.utility" = {}
+"omni.kit.window.extensions" = {}
+"omni.replicator.core" = {}
+"omni.timeline" = {}
+
+[[python.module]]
+name = "isaacsim.replicator.synthetic_recorder"
+
+[[test]]
+name = "startup"
+args = [
+    "--/app/settings/fabricDefaultStageFrameHistoryCount=3",
+]
+
+[[test]]
+timeout = 900
+dependencies = [
+    "isaacsim.test.utils",
+    "omni.kit.viewport.window",
+]
+stdoutFailPatterns.exclude = [
+    '*The NumPy module was reloaded*',
+]
+
+"filter:platform"."windows-x86_64".pythonTests.exclude = [
+    "isaacsim.replicator.synthetic_recorder.tests.test_recorder_outputs.*",
+    "isaacsim.replicator.synthetic_recorder.tests.test_recorder_ui.*",
+    "isaacsim.replicator.synthetic_recorder.tests.test_recorder_timeline.*",
+]
+
+args = [
+    "--enable",
+    "omni.kit.loop-isaac",
+    "--reset-user",
+    "--vulkan",
+    "--/app/asyncRendering=0",
+    "--/app/asyncRenderingLowLatency=0",
+    "--/app/fastShutdown=1",
+    "--/app/file/ignoreUnsavedStage=1",
+    "--/app/hydraEngine/waitIdle=0",
+    "--/app/player/useFixedTimeStepping=false",
+    "--/app/renderer/skipWhileMinimized=0",
+    "--/app/renderer/sleepMsOnFocus=0",
+    "--/app/renderer/sleepMsOutOfFocus=0",
+    "--/app/runLoops/main/manualModeEnabled=true",
+    "--/app/runLoops/main/rateLimitEnabled=false",
+    "--/app/settings/fabricDefaultStageFrameHistoryCount=3",
+    "--/app/settings/persistent=0",
+    "--/app/useFabricSceneDelegate=true",
+    "--/app/viewport/createCameraModelRep=0",
+    "--/crashreporter/skipOldDumpUpload=1",
+    "--/exts/omni.usd/locking/onClose=0",
+    "--/omni/kit/plugin/syncUsdLoads=1",
+    "--/omni/replicator/asyncRendering=0",
+    "--/omnihydra/parallelHydraSprimSync=1",
+    '--/persistent/app/stage/upAxis="Z"',
+    "--/persistent/app/viewport/defaults/tickRate=120",
+    "--/persistent/app/viewport/displayOptions=31951",
+    "--/persistent/omni/replicator/captureOnPlay=1",
+    "--/persistent/omnigraph/updateToUsd=0",
+    "--/persistent/physics/visualizationDisplayJoints=0",
+    "--/persistent/renderer/startupMessageDisplayed=1",
+    "--/persistent/simulation/defaultMetersPerUnit=1.0",
+    "--/persistent/simulation/minFrameRate=15",
+    "--/renderer/multiGpu/autoEnable=0",
+    "--/renderer/multiGpu/enabled=0",
+    "--/rtx-transient/dlssg/enabled=0",
+    "--/rtx-transient/resourcemanager/enableTextureStreaming=1",
+    "--/rtx/descriptorSets=360000",
+    "--/rtx/hydra/enableSemanticSchema=1",
+    "--/rtx/hydra/materialSyncLoads=1",
+    "--/rtx/hydra/supportMultiTickRate=true",
+    "--/rtx/materialDb/syncLoads=1",
+    "--/rtx/newDenoiser/enabled=1",
+    "--/rtx/rendering/perSensorTickTlas=true",
+    "--/rtx/reservedDescriptors=900000",
+]
+
+[[test]]
+name = "test_recorder_outputs"
+timeout = 900
+dependencies = [
+    "isaacsim.test.utils",
+    "omni.kit.viewport.window",
+]
+stdoutFailPatterns.exclude = [
+    '*The NumPy module was reloaded*',
+]
+
+"filter:platform"."windows-x86_64".pythonTests.include = [
+    "isaacsim.replicator.synthetic_recorder.tests.test_recorder_outputs.*",
+]
+
+# These tests should only run on Windows
+"filter:platform"."linux-x86_64".pythonTests.exclude = [
+    "*"
+]
+
+args = [
+    "--enable",
+    "omni.kit.loop-isaac",
+    "--reset-user",
+    "--vulkan",
+    "--/app/asyncRendering=0",
+    "--/app/asyncRenderingLowLatency=0",
+    "--/app/fastShutdown=1",
+    "--/app/file/ignoreUnsavedStage=1",
+    "--/app/hydraEngine/waitIdle=0",
+    "--/app/player/useFixedTimeStepping=false",
+    "--/app/renderer/skipWhileMinimized=0",
+    "--/app/renderer/sleepMsOnFocus=0",
+    "--/app/renderer/sleepMsOutOfFocus=0",
+    "--/app/runLoops/main/manualModeEnabled=true",
+    "--/app/runLoops/main/rateLimitEnabled=false",
+    "--/app/settings/fabricDefaultStageFrameHistoryCount=3",
+    "--/app/settings/persistent=0",
+    "--/app/useFabricSceneDelegate=true",
+    "--/app/viewport/createCameraModelRep=0",
+    "--/crashreporter/skipOldDumpUpload=1",
+    "--/exts/omni.usd/locking/onClose=0",
+    "--/omni/kit/plugin/syncUsdLoads=1",
+    "--/omni/replicator/asyncRendering=0",
+    "--/omnihydra/parallelHydraSprimSync=1",
+    '--/persistent/app/stage/upAxis="Z"',
+    "--/persistent/app/viewport/defaults/tickRate=120",
+    "--/persistent/app/viewport/displayOptions=31951",
+    "--/persistent/omni/replicator/captureOnPlay=1",
+    "--/persistent/omnigraph/updateToUsd=0",
+    "--/persistent/physics/visualizationDisplayJoints=0",
+    "--/persistent/renderer/startupMessageDisplayed=1",
+    "--/persistent/simulation/defaultMetersPerUnit=1.0",
+    "--/persistent/simulation/minFrameRate=15",
+    "--/renderer/multiGpu/autoEnable=0",
+    "--/renderer/multiGpu/enabled=0",
+    "--/rtx-transient/dlssg/enabled=0",
+    "--/rtx-transient/resourcemanager/enableTextureStreaming=1",
+    "--/rtx/descriptorSets=360000",
+    "--/rtx/hydra/enableSemanticSchema=1",
+    "--/rtx/hydra/materialSyncLoads=1",
+    "--/rtx/hydra/supportMultiTickRate=true",
+    "--/rtx/materialDb/syncLoads=1",
+    "--/rtx/newDenoiser/enabled=1",
+    "--/rtx/rendering/perSensorTickTlas=true",
+    "--/rtx/reservedDescriptors=900000",
+]
+
+[[test]]
+name = "test_recorder_ui"
+timeout = 900
+dependencies = [
+    "isaacsim.test.utils",
+    "omni.kit.viewport.window",
+]
+stdoutFailPatterns.exclude = [
+    '*The NumPy module was reloaded*',
+]
+
+"filter:platform"."windows-x86_64".pythonTests.include = [
+    "isaacsim.replicator.synthetic_recorder.tests.test_recorder_ui.*",
+]
+
+# These tests should only run on Windows
+"filter:platform"."linux-x86_64".pythonTests.exclude = [
+    "*"
+]
+
+args = [
+    "--enable",
+    "omni.kit.loop-isaac",
+    "--reset-user",
+    "--vulkan",
+    "--/app/asyncRendering=0",
+    "--/app/asyncRenderingLowLatency=0",
+    "--/app/fastShutdown=1",
+    "--/app/file/ignoreUnsavedStage=1",
+    "--/app/hydraEngine/waitIdle=0",
+    "--/app/player/useFixedTimeStepping=false",
+    "--/app/renderer/skipWhileMinimized=0",
+    "--/app/renderer/sleepMsOnFocus=0",
+    "--/app/renderer/sleepMsOutOfFocus=0",
+    "--/app/runLoops/main/manualModeEnabled=true",
+    "--/app/runLoops/main/rateLimitEnabled=false",
+    "--/app/settings/fabricDefaultStageFrameHistoryCount=3",
+    "--/app/settings/persistent=0",
+    "--/app/useFabricSceneDelegate=true",
+    "--/app/viewport/createCameraModelRep=0",
+    "--/crashreporter/skipOldDumpUpload=1",
+    "--/exts/omni.usd/locking/onClose=0",
+    "--/omni/kit/plugin/syncUsdLoads=1",
+    "--/omni/replicator/asyncRendering=0",
+    "--/omnihydra/parallelHydraSprimSync=1",
+    '--/persistent/app/stage/upAxis="Z"',
+    "--/persistent/app/viewport/defaults/tickRate=120",
+    "--/persistent/app/viewport/displayOptions=31951",
+    "--/persistent/omni/replicator/captureOnPlay=1",
+    "--/persistent/omnigraph/updateToUsd=0",
+    "--/persistent/physics/visualizationDisplayJoints=0",
+    "--/persistent/renderer/startupMessageDisplayed=1",
+    "--/persistent/simulation/defaultMetersPerUnit=1.0",
+    "--/persistent/simulation/minFrameRate=15",
+    "--/renderer/multiGpu/autoEnable=0",
+    "--/renderer/multiGpu/enabled=0",
+    "--/rtx-transient/dlssg/enabled=0",
+    "--/rtx-transient/resourcemanager/enableTextureStreaming=1",
+    "--/rtx/descriptorSets=360000",
+    "--/rtx/hydra/enableSemanticSchema=1",
+    "--/rtx/hydra/materialSyncLoads=1",
+    "--/rtx/hydra/supportMultiTickRate=true",
+    "--/rtx/materialDb/syncLoads=1",
+    "--/rtx/newDenoiser/enabled=1",
+    "--/rtx/rendering/perSensorTickTlas=true",
+    "--/rtx/reservedDescriptors=900000",
+]
+
+[[test]]
+name = "test_recorder_timeline"
+timeout = 900
+dependencies = [
+    "isaacsim.test.utils",
+    "omni.kit.viewport.window",
+]
+stdoutFailPatterns.exclude = [
+    '*The NumPy module was reloaded*',
+]
+
+"filter:platform"."windows-x86_64".pythonTests.include = [
+    "isaacsim.replicator.synthetic_recorder.tests.test_recorder_timeline.*",
+]
+
+# These tests should only run on Windows
+"filter:platform"."linux-x86_64".pythonTests.exclude = [
+    "*"
+]
+
+args = [
+    "--enable",
+    "omni.kit.loop-isaac",
+    "--reset-user",
+    "--vulkan",
+    "--/app/asyncRendering=0",
+    "--/app/asyncRenderingLowLatency=0",
+    "--/app/fastShutdown=1",
+    "--/app/file/ignoreUnsavedStage=1",
+    "--/app/hydraEngine/waitIdle=0",
+    "--/app/player/useFixedTimeStepping=false",
+    "--/app/renderer/skipWhileMinimized=0",
+    "--/app/renderer/sleepMsOnFocus=0",
+    "--/app/renderer/sleepMsOutOfFocus=0",
+    "--/app/runLoops/main/manualModeEnabled=true",
+    "--/app/runLoops/main/rateLimitEnabled=false",
+    "--/app/settings/fabricDefaultStageFrameHistoryCount=3",
+    "--/app/settings/persistent=0",
+    "--/app/useFabricSceneDelegate=true",
+    "--/app/viewport/createCameraModelRep=0",
+    "--/crashreporter/skipOldDumpUpload=1",
+    "--/exts/omni.usd/locking/onClose=0",
+    "--/omni/kit/plugin/syncUsdLoads=1",
+    "--/omni/replicator/asyncRendering=0",
+    "--/omnihydra/parallelHydraSprimSync=1",
+    '--/persistent/app/stage/upAxis="Z"',
+    "--/persistent/app/viewport/defaults/tickRate=120",
+    "--/persistent/app/viewport/displayOptions=31951",
+    "--/persistent/omni/replicator/captureOnPlay=1",
+    "--/persistent/omnigraph/updateToUsd=0",
+    "--/persistent/physics/visualizationDisplayJoints=0",
+    "--/persistent/renderer/startupMessageDisplayed=1",
+    "--/persistent/simulation/defaultMetersPerUnit=1.0",
+    "--/persistent/simulation/minFrameRate=15",
+    "--/renderer/multiGpu/autoEnable=0",
+    "--/renderer/multiGpu/enabled=0",
+    "--/rtx-transient/dlssg/enabled=0",
+    "--/rtx-transient/resourcemanager/enableTextureStreaming=1",
+    "--/rtx/descriptorSets=360000",
+    "--/rtx/hydra/enableSemanticSchema=1",
+    "--/rtx/hydra/materialSyncLoads=1",
+    "--/rtx/hydra/supportMultiTickRate=true",
+    "--/rtx/materialDb/syncLoads=1",
+    "--/rtx/newDenoiser/enabled=1",
+    "--/rtx/rendering/perSensorTickTlas=true",
+    "--/rtx/reservedDescriptors=900000",
+]
+
+[documentation]
+pages = ["docs/Overview.md", "docs/CHANGELOG.md"]

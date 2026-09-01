@@ -1,0 +1,43 @@
+{
+    "IsaacAttachHydraTexture": {
+        "version": 1,
+        "icon": "icons/isaac-sim.svg",
+        "description": "Isaac Sim node that attaches render vars and a hydra texture to an existing render product",
+        "language": "Python",
+        "categoryDefinitions": "config/CategoryDefinition.json",
+        "categories": "isaacCore",
+        "metadata": {
+            "uiName": "Isaac Attach Hydra Texture"
+        },
+        "inputs": {
+            "execIn": {
+                "type": "execution",
+                "description": "Input execution trigger"
+            },
+            "renderProductPrim": {
+                "type": "target",
+                "description": "Usd prim reference to the render product to attach the hydra texture to"
+            },
+            "renderVars": {
+                "type": "token[]",
+                "description": "List of render vars (AOVs) to apply to the render product",
+                "default": []
+            },
+            "enabled": {
+                "type": "bool",
+                "description": "Set to false to disable downstream execution and hydra texture updates",
+                "default": true
+            }
+        },
+        "outputs": {
+            "renderProductPath": {
+                "type": "token",
+                "description": "Render product path for the attached hydra texture"
+            },
+            "execOut": {
+                "type": "execution",
+                "description": "Output execution trigger"
+            }
+        }
+    }
+}

@@ -1,0 +1,111 @@
+[package]
+title = "Isaac Sim Full (Newton Physics)"
+description = "Full Omniverse Isaac Sim Application with Newton Physics Engine"
+version = "6.0.1"
+execFile = "isaac-sim.newton"
+keywords = ["experience", "app", "usd", "isaacsim", "newton"]
+
+[dependencies]
+"isaacsim.exp.full" = {}
+
+# Newton Physics Engine
+"isaacsim.physics.newton" = {}
+"isaacsim.physics.newton.tensors" = {}
+"isaacsim.physics.newton.ui" = {}
+"isaacsim.test.utils" = {}
+
+# Physics UI (shared between PhysX and Newton)
+"omni.physics.ui" = {}
+
+# Warp extensions for Newton
+"omni.warp.core" = {}
+
+# Disable PhysX extensions (use Newton instead)
+"omni.physics.stageupdate" = { enabled = false }
+"omni.physics.physx" = { enabled = false }
+"omni.physx.bundle" = { enabled = false }
+"omni.physx.fabric" = { enabled = false }
+"omni.physx.graph" = { enabled = false }
+"omni.physx.camera" = { enabled = false }
+"omni.physx.pvd" = { enabled = false }
+"omni.physx.vehicle" = { enabled = false }
+"omni.physx.demos" = { enabled = false }
+"omni.physx.asset_validator" = { enabled = false }
+"isaacsim.sensors.physx" = { enabled = false }
+"isaacsim.sensors.physx.examples" = { enabled = false }
+"isaacsim.sensors.physx.ui" = { enabled = false }
+"isaacsim.sensors.experimental.physics" = { enabled = false }
+"isaacsim.sensors.physics.nodes" = { enabled = false }
+
+[settings]
+# Newton simulation specific settings
+exts."isaacsim.physics.newton".auto_switch_on_startup = true
+exts."isaacsim.physics.newton".capture_graph_physics_step = true
+
+# default internal ros2 bridge distro to use if no ros2 distro is sourced
+exts."isaacsim.ros2.bridge".ros_distro = "system_default"
+# enable async rendering runtime toggle
+exts."isaacsim.core.throttling".enable_async = true
+# enable manual mode runtime toggle
+exts."isaacsim.core.throttling".enable_manualmode = true
+
+# Disable PhysX at settings level
+[settings.exts."omni.physx"]
+enabled = false
+
+[settings.exts."omni.physics.physx"]
+enabled = false
+
+[settings.exts."isaacsim.sensors.physx"]
+enabled = false
+
+[settings.exts."omni.usdphysics"]
+enabled = false
+
+# PhysX fabric/USD sync settings (all disabled for Newton)
+updateToUsd = false
+updateVelocitiesToUsd = false
+updateParticlesToUsd = false
+updateForceSensorsToUsd = false
+outputVelocitiesLocalSpace = false
+useFastCache = false
+visualizationDisplayJoints = false
+fabricUpdateTransformations = false
+fabricUpdateVelocities = false
+fabricUpdateForceSensors = false
+fabricUpdateJointStates = false
+
+[settings.app]
+name = "Isaac-Sim Full (Newton)"
+version = "6.0.1"
+window.title = "Isaac Sim Full (Newton Physics)"
+vulkan = true
+fastShutdown = true
+useFabricSceneDelegate = true
+file.ignoreUnsavedStage = false
+enableDeveloperWarnings = false
+runLoops.main.rateLimitEnabled = true
+runLoops.main.manualModeEnabled = true
+player.useFixedTimeStepping = true
+
+# set the default ros bridge to enable on startup
+[settings."filter:platform"."windows-x86_64"]
+isaac.startup.ros_bridge_extension = ""
+[settings."filter:platform"."linux-x86_64"]
+isaac.startup.ros_bridge_extension = "isaacsim.ros2.bridge"
+[settings."filter:platform"."linux-aarch64"]
+isaac.startup.ros_bridge_extension = "isaacsim.ros2.bridge"
+
+[settings.app.exts.folders]
+'++' = [
+    "${app}",
+    "${app}/../exts",
+    "${app}/../extscache",
+    "${app}/../extsUser",
+    "${app}/../extsDeprecated",
+]
+
+[settings.exts."omni.kit.registry.nucleus".registries]
+++ = [
+    { name = "isaacsim/prod/6.0", url = "https://ovextensionsprod.blob.core.windows.net/exts/isaacsim/prod/6.0/shared" },
+]

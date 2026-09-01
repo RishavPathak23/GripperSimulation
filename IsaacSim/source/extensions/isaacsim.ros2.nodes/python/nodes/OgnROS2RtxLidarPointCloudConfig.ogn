@@ -1,0 +1,88 @@
+{
+    "isaacsim.ros2.bridge.ROS2RtxLidarPointCloudConfig" : {
+        "version" : 1,
+        "icon" : "icons/isaac-sim.svg",
+        "description" : "Specify RTX Lidar metadata for ROS2 PointCloud2 message.",
+        "language" : "Python",
+        "categoryDefinitions": "config/CategoryDefinition.json",
+        "categories": "isaacRos2",
+        "metadata" : {
+            "uiName" : "ROS2 RTX Lidar Point Cloud Config"
+        },
+        "inputs": {
+            "outputIntensity": {
+                "type": "bool",
+                "description": "Include the Intensity (Lidar).",
+                "default": false,
+                "uiName": "Include the Intensity"
+            },
+            "outputTimestamp": {
+                "type": "bool",
+                "description": "Include the Timestamp.",
+                "default": false,
+                "uiName": "Include the Timestamp"
+            },
+            "outputEmitterId": {
+                "type": "bool",
+                "description": "Include the EmitterId.",
+                "default": false,
+                "uiName": "Include the EmitterId"
+            },
+            "outputChannelId": {
+                "type": "bool",
+                "description": "Include the ChannelId.",
+                "default": false,
+                "uiName": "Include the ChannelId"
+            },
+            "outputMaterialId": {
+                "type": "bool",
+                "description": "Include the MaterialId.",
+                "default": false,
+                "uiName": "Include the MaterialId"
+            },
+            "outputTickId": {
+                "type": "bool",
+                "description": "Include the TickId.",
+                "default": false,
+                "uiName": "Include the TickId"
+            },
+            "outputHitNormal": {
+                "type": "bool",
+                "description": "Include the Normals.",
+                "default": false,
+                "uiName": "Include the Normals"
+            },
+            "outputVelocity": {
+                "type": "bool",
+                "description": "Include the Velocity.",
+                "default": false,
+                "uiName": "Include the Velocity"
+            },
+            "outputObjectId": {
+                "type": "bool",
+                "description": "Include the ObjectId.",
+                "default": false,
+                "uiName": "Include the ObjectId"
+            },
+            "outputEchoId": {
+                "type": "bool",
+                "description": "Include the EchoId.",
+                "default": false,
+                "uiName": "Include the EchoId"
+            },
+            "outputTickState": {
+                "type": "bool",
+                "description": "Include the TickState.",
+                "default": false,
+                "uiName": "Include the TickState"
+            }
+        },
+        "outputs": {
+            "selectedMetadata": {
+                "type": "token[]",
+                "description": "Selected metadata to include in the PointCloud2 message",
+                "default": []
+            }
+        }
+    }
+}

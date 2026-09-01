@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: Copyright (c) 2022-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# NOTE: Import here your extension examples to be propagated to ISAAC SIM Extensions startup
+
+from .franka.franka_example import FrankaExample as FrankaExample
+from .franka.franka_example_extension import FrankaExampleExtension as FrankaExampleExtension
+from .humanoid.humanoid_example import HumanoidExample as HumanoidExample
+from .humanoid.humanoid_example_extension import HumanoidExampleExtension as HumanoidExampleExtension
+from .quadruped.quadruped_example import QuadrupedExample as QuadrupedExample
+from .quadruped.quadruped_example_extension import QuadrupedExampleExtension as QuadrupedExampleExtension

@@ -1,0 +1,25 @@
+# Target kit 109.x, python 3.12
+# UCX Core dependencies
+[[dependency]]
+python = "../_build/target-deps/python"
+packages = [
+    "libucxx-cu12==0.44.0", # SWIPAT filed under: https://nvbugs/5585451 # Used by: isaacsim.ucx.core
+    "libucx-cu12==1.19.0",  # SWIPAT filed under: https://nvbugs/5585468 # Used by: isaacsim.ucx.core
+    "librmm-cu12==25.6.0",  # SWIPAT filed under: https://nvbugs/5585481 # Used by: isaacsim.ucx.core
+    "rapids-logger==0.1.1", # SWIPAT filed under: https://nvbugs/5585556 # Used by: isaacsim.ucx.core
+    "ucxx-cu12==0.44.0",    # SWIPAT filed under: https://nvbugs/5621603 # Used by: isaacsim.ucx.core
+    "rmm-cu12==25.6.0",     # SWIPAT filed under: https://nvbugs/5621610 # Used by: isaacsim.ucx.core
+    "cuda-python==12.9.2",  # SWIPAT filed under: https://nvbugs/5621654 # Used by: isaacsim.ucx.core
+    "cupy-cuda12x==13.6.0", # SWIPAT filed under: https://nvbugs/5621660 # Used by: isaacsim.ucx.core
+    "fastrlock==0.8.3",     # SWIPAT filed under: https://nvbugs/5621677 # Used by: isaacsim.ucx.core
+    "cuda-bindings==12.9.2",
+    "cuda-pathfinder==1.1.0",
+    "flatbuffers==22.12.06", # Used by: isaacsim.ucx.nodes (tests)
+]
+
+target = "../_build/target-deps/pip_ucx_prebundle"
+platforms = ["linux-x86_64", "linux-aarch64"]
+download_only = false
+install_dependencies = false
+append_to_install_folder = true
+gather_licenses_path = "../_build/PACKAGE-LICENSES/PIP-prebundled-LICENSES.txt"

@@ -1,0 +1,47 @@
+[package]
+title = "Isaac Sim"
+description = "Main Omniverse Isaac Sim Application"
+version = "6.0.1"
+execFile = "isaac-sim.fabric"
+keywords = ["experience", "app", "usd", "isaacsim"] # That makes it browsable in UI with "experience" filter
+
+
+[dependencies]
+"isaacsim.exp.full" = {}
+"omni.kit.manipulator.prim.fabric" = {}
+"omni.kit.property.adapter.fabric" = {}
+"omni.physics.physx" = {}
+"omni.physics.stageupdate" = {}
+"omni.physx.fabric" = {}
+"usdrt.scenegraph" = {}
+
+[settings]
+app.enableDeveloperWarnings = false # disable developer warnings to reduce log noise
+app.fabric.selection.enabled = true
+app.name = "Isaac-Sim Fabric"
+app.version = "6.0.1"
+app.vulkan = true                   # Explicitly enable Vulkan
+ext."omni.kit.property.usd".enableAdapter = true  # show live Fabric values in the Property window
+exts."omni.kit.manipulator.prim.core".accessor.priority.usd = 3
+exts."omni.kit.manipulator.prim.core".supportfabric = true
+
+[settings.persistent]
+omnigraph.updateToUsd = false
+omnihydra.useFastSceneDelegate = true
+omnihydra.useSceneGraphInstancing = true
+physics.updateForceSensorsToUsd = false
+physics.visualizationDisplayJoints = false
+
+[settings.app.exts.folders]
+'++' = [
+    "${app}",
+    "${app}/../exts",
+    "${app}/../extscache",
+    "${app}/../extsUser",
+    "${app}/../extsDeprecated",
+]
+
+[settings.exts."omni.kit.registry.nucleus".registries]
+++ = [
+    { name = "isaacsim/prod/6.0", url = "https://ovextensionsprod.blob.core.windows.net/exts/isaacsim/prod/6.0/shared" },
+]

@@ -1,0 +1,183 @@
+[package]
+title = "Isaac Sim Full"
+description = "Full Omniverse Isaac Sim Application"
+version = "6.0.1"
+execFile = "isaac-sim"
+keywords = ["experience", "app", "usd", "isaacsim"] # That makes it browsable in UI with "experience" filter
+
+
+[dependencies]
+"isaacsim.exp.base" = {}
+
+# Additional Isaac Sim extensions
+"isaacsim.app.setup" = { order = 1000 }
+"isaacsim.asset.gen.omap" = {}
+"isaacsim.asset.gen.omap.ui" = {}
+"isaacsim.asset.importer.utils" = {}
+"isaacsim.asset.importer.mjcf.ui" = {}
+"isaacsim.asset.importer.heightmap" = {}
+"isaacsim.asset.importer.urdf.ui" = {}
+"isaacsim.asset.exporter.urdf.ui" = {}
+"isaacsim.asset.transformer.ui" = {}
+"isaacsim.asset.validation" = {}
+"isaacsim.cortex.examples" = {}
+"isaacsim.examples.extension" = {}
+"isaacsim.examples.interactive" = {}
+"isaacsim.gui.components" = {}
+"isaacsim.examples.browser" = {}
+"isaacsim.replicator.behavior.ui" = {}
+"isaacsim.replicator.episode_recorder.ui" = {}
+"isaacsim.replicator.grasping.ui" = {}
+"isaacsim.replicator.synthetic_recorder" = {}
+"isaacsim.robot.experimental.manipulators.examples" = {}
+"isaacsim.robot.manipulators.examples" = {}
+"isaacsim.robot.manipulators.ui" = {}
+"isaacsim.robot.schema.ui" = {}
+"isaacsim.robot.surface_gripper.ui" = {}
+"isaacsim.robot.wheeled_robots.ui" = {}
+"isaacsim.robot_setup.assembler" = {}
+"isaacsim.robot_setup.collision_detector" = {}
+"isaacsim.robot_setup.gain_tuner" = {}
+"isaacsim.robot.poser.ui" = {}
+"isaacsim.robot_setup.grasp_editor" = {}
+"isaacsim.robot_setup.xrdf_editor" = {}
+"isaacsim.sensors.camera.ui" = {}
+"isaacsim.sensors.physics.examples" = {}
+"isaacsim.sensors.physics.ui" = {}
+"isaacsim.sensors.physx.examples" = {}
+"isaacsim.sensors.physx.ui" = {}
+"isaacsim.sensors.rtx.ui" = {}
+"isaacsim.util.camera_inspector" = {}
+"isaacsim.util.physics" = {}
+
+# Additional Kit extensions
+"omni.anim.behavior.bundle" = {}
+"omni.anim.curve.bundle" = {}
+"omni.anim.graph.bundle" = {}
+"omni.anim.navigation.bundle" = {}
+"omni.anim.retarget.bundle" = {}
+"omni.physx.asset_validator" = {}
+"omni.asset_validator.ui" = { order = 2000 }
+"omni.anim.shared.core" = {}
+"omni.behavior.scripting.bundle" = {}
+"omni.behavior.tree.bundle" = {}
+"omni.graph.bundle.action" = {}
+"omni.graph.visualization.nodes" = {}
+"omni.graph.window.action" = {}
+"omni.graph.window.generic" = {}
+"omni.importer.onshape" = {}
+"omni.kit.actions.window" = {}
+"omni.kit.asset_converter" = {}
+"omni.kit.browser.asset" = {}
+"omni.kit.browser.material" = {}
+"omni.kit.collaboration.channel_manager" = {}
+"omni.kit.context_menu" = {}
+"omni.kit.graph.delegate.default" = {}
+"omni.kit.hotkeys.window" = {}
+"omni.kit.manipulator.transform" = {}
+"omni.kit.mesh.raycast" = {}
+"omni.kit.preferences.animation" = {}
+"omni.kit.profiler.window" = { order = 2000 }
+"omni.kit.property.collection" = {}
+"omni.kit.property.layer" = {}
+"omni.kit.quicklayout" = {}
+"omni.kit.renderer.capture" = {}
+"omni.kit.renderer.core" = {}
+"omni.kit.search.files" = {}
+"omni.kit.selection" = {}
+"omni.kit.stage.copypaste" = {}
+"omni.kit.stage.mdl_converter" = {}
+"omni.kit.stage_column.payload" = {}
+"omni.kit.stage_column.variant" = {}
+"omni.kit.stage_templates" = {}
+"omni.kit.stagerecorder.bundle" = {}
+"omni.kit.tool.asset_exporter" = {}
+"omni.kit.tool.remove_unused.controller" = {}
+"omni.kit.tool.remove_unused.core" = {}
+"omni.kit.uiapp" = {}
+"omni.kit.usda_edit" = {}
+"omni.kit.variant.editor" = {}
+"omni.kit.variant.presenter" = {}
+"omni.kit.viewport.actions" = {}
+"omni.kit.viewport.bundle" = {}
+"omni.kit.viewport.rtx" = {}
+"omni.kit.viewport_widgets_manager" = {}
+"omni.kit.widget.cache_indicator" = {}
+"omni.kit.widget.collection" = {}
+"omni.kit.widget.extended_searchfield" = {}
+"omni.kit.widget.filebrowser" = {}
+"omni.kit.widget.layers" = {}
+"omni.kit.widget.live" = {}
+"omni.kit.widget.timeline" = {}
+"omni.kit.widget.versioning" = {}
+"omni.kit.widgets.custom" = {}
+"omni.kit.window.collection" = {}
+"omni.kit.window.commands" = {}
+"omni.kit.window.cursor" = {}
+"omni.kit.window.extensions" = {}
+"omni.kit.window.file" = {}
+"omni.kit.window.filepicker" = {}
+"omni.kit.window.material" = {}
+"omni.kit.window.material_graph" = {}
+"omni.kit.window.preferences" = {}
+"omni.kit.window.quicksearch" = {}
+"omni.kit.window.script_editor" = {}
+"omni.kit.window.stats" = { order = 1000 }
+"omni.kit.window.title" = {}
+"omni.kit.window.usd_paths" = {}
+"omni.physx.bundle" = {}
+"omni.resourcemonitor" = {}
+"omni.simready.explorer" = {}
+"omni.stats" = {}
+"omni.usd.metrics.assembler.physics" = {}
+"omni.usd.metrics.assembler.usdgeom" = {}
+"omni.usd.schema.scene.visualization" = {}
+"omni.kit.converter.cad" = {order = 200, version = "~209.4"}
+"omni.kit.converter.gsplat" = {}
+
+[dependencies."filter:platform"."linux-x86_64"]
+"isaacsim.replicator.teleop.ui" = {}
+
+[settings]
+# default internal ros2 bridge distro to use if no ros2 distro is sourced
+exts."isaacsim.ros2.bridge".ros_distro = "system_default"
+# keep Test Runner populated with Isaac tests even if dependency extensions set narrower filters
+exts."omni.kit.test".includeTests = ["*isaac*"]
+# enable async rendering runtime toggle
+exts."isaacsim.core.throttling".enable_async = true
+# enable manual mode runtime toggle
+exts."isaacsim.core.throttling".enable_manualmode = true
+
+[settings.app]
+name = "Isaac-Sim Full"
+version = "6.0.1"
+file.ignoreUnsavedStage = false
+window.title = "Isaac Sim Full"
+vulkan = true                          # Explicitly enable Vulkan
+enableDeveloperWarnings = false        # Disable developer warnings to reduce log noise
+runLoops.main.rateLimitEnabled = true  # Enable main run-loop rate limit (loop sleeps at end of frame to cap tick rate); paired with rateLimitFrequency (default 60 hz)
+runLoops.main.manualModeEnabled = true # Enable manual mode, dt is fixed at requested rate
+player.useFixedTimeStepping = true     # Enable fixed time stepping; timeline forces dt = 1/timeCodesPerSecond regardless of measured wall-clock dt
+
+
+# set the default ros bridge to enable on startup
+[settings."filter:platform"."windows-x86_64"]
+isaac.startup.ros_bridge_extension = ""
+[settings."filter:platform"."linux-x86_64"]
+isaac.startup.ros_bridge_extension = "isaacsim.ros2.bridge"
+[settings."filter:platform"."linux-aarch64"]
+isaac.startup.ros_bridge_extension = "isaacsim.ros2.bridge"
+
+[settings.app.exts.folders]
+'++' = [
+    "${app}",
+    "${app}/../exts",
+    "${app}/../extscache",
+    "${app}/../extsUser",
+    "${app}/../extsDeprecated",
+]
+
+[settings.exts."omni.kit.registry.nucleus".registries]
+++ = [
+    { name = "isaacsim/prod/6.0", url = "https://ovextensionsprod.blob.core.windows.net/exts/isaacsim/prod/6.0/shared" },
+]
